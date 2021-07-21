@@ -9,3 +9,6 @@ export type LoginRequest = {
   password: string;
 };
 export type LoginResponse = User & { access_token: string };
+
+export type GetLoginUserRequest = void;
+export type GetLoginUserResponse = User;

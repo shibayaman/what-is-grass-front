@@ -16,6 +16,7 @@ export {
   useLazyGetAnswersQuery,
   useGetAnswersQuery,
   useAddAnswerMutation,
+  useGetLoginUserQuery,
   useLoginMutation,
 } from './redux/services/word';
 export { Index } from './types/indexType';

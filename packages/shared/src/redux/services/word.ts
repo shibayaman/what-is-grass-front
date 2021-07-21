@@ -15,7 +15,12 @@ import {
   GetAnswersRequest,
   GetANswersResponse,
 } from '../../types/answer';
-import { LoginRequest, LoginResponse } from '../../types/auth';
+import {
+  LoginRequest,
+  LoginResponse,
+  GetLoginUserRequest,
+  GetLoginUserResponse,
+} from '../../types/auth';
 
 // mswが有効化される前にクエリーが飛んじゃう謎の挙動があったので
 // デフォルトのfetchをPromiseでラップしてみたら期待通りに動いた。
@@ -69,6 +74,9 @@ export const wordApi = createApi({
         body,
       }),
     }),
+    getLoginUser: builder.query<GetLoginUserResponse, GetLoginUserRequest>({
+      query: () => 'whoami',
+    }),
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (body) => ({
         url: 'login',
@@ -87,4 +95,5 @@ export const useAddIndexMutation = wordApi.endpoints.addIndex.useMutation;
 export const useLazyGetAnswersQuery = wordApi.endpoints.getAnswers.useLazyQuery;
 export const useGetAnswersQuery = wordApi.endpoints.getAnswers.useQuery;
 export const useAddAnswerMutation = wordApi.endpoints.addAnswer.useMutation;
+export const useGetLoginUserQuery = wordApi.endpoints.getLoginUser.useQuery;
 export const useLoginMutation = wordApi.endpoints.login.useMutation;

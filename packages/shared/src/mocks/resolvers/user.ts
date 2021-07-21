@@ -44,3 +44,15 @@ export const loginUser: Resolver = (_, res, ctx) => {
     })
   );
 };
+
+export const getLoginUser: Resolver = (_, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      id: 100,
+      username: 'AtamaHagetaro',
+      email: 'hage@hage.com',
+      acces_token: '1',
+    })
+  );
+};
