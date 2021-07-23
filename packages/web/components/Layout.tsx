@@ -16,9 +16,13 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [logout, { isLoading }] = useLogoutMutation();
-  const onLogoutHandler = () => {
-    logout();
-    dispatch(loggedOut());
+  const onLogoutHandler = async () => {
+    try {
+      await logout();
+      dispatch(loggedOut());
+    } catch (err) {
+      //
+    }
   };
 
   return (
