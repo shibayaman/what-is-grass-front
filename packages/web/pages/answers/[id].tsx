@@ -1,7 +1,7 @@
 import AnswerItem from '../../components/AnswerItem';
 import Layout from '../../components/Layout';
 import { useLazyGetAnswersQuery, useSelector } from '@what-is-grass/shared';
-import router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
@@ -10,7 +10,7 @@ const QuestionAnswer: React.FC = () => {
     useLazyGetAnswersQuery();
   const user = useSelector((state) => state.auth.user);
 
-  const { query, isReady } = useRouter();
+  const { query, isReady, push: routerPush } = useRouter();
   const indexId = query.id as string;
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const QuestionAnswer: React.FC = () => {
   }, [isReady]);
 
   const handleNewAnswerClick = () => {
-    router.push(`/new-answer/${indexId}`);
+    routerPush(`/new-answer/${indexId}`);
   };
 
   const makeNewAnswerButton = () => {
