@@ -8,7 +8,6 @@ import {
 } from '@what-is-grass/shared';
 import { useEffect } from 'react';
 import { shallowEqual } from 'react-redux';
-import { useRouter } from 'next/router';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -32,7 +31,6 @@ const searchFormSchema = yup.object({
 });
 
 const SearchBar: React.FC<Props> = (props) => {
-  const router = useRouter();
   const dispatch = useDispatch();
   const latestSearchRequest = useSelector(
     (state) => state.questions.latestSearchRequest,
@@ -43,7 +41,7 @@ const SearchBar: React.FC<Props> = (props) => {
     skip: latestSearchRequest === null,
   });
 
-  const { register, handleSubmit, getValues } = useForm<FormValue>({
+  const { register, handleSubmit } = useForm<FormValue>({
     defaultValues: {
       keyword: latestSearchRequest?.keyword ?? '',
       languageId: latestSearchRequest?.language_id ?? 1,
@@ -74,60 +72,43 @@ const SearchBar: React.FC<Props> = (props) => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="search-box">
-          <div className="search-input">
-            <input
-              name="keyword"
-              ref={register}
-              placeholder="なんかを聞きたいの？"
-              aria-label="なんかを聞きたいの？"
-            />
-            <input type="submit" value="検索" disabled={isLoading} />
-          </div>
-        </div>
-        <div>
-          <select name="languageId" ref={register} className="search-lauguage">
-            <option value="1">日本語</option>
-            <option value="2">英語</option>
-          </select>
-        </div>
-        <div>
-          <select name="sortId" ref={register} className="sort">
-            <option value="1">日付</option>
-            <option value="2">役立Count</option>
-            <option value="3">回答者数</option>
-          </select>
-        </div>
-        <div>
-          <select
-            name="includeNoAnswer"
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="search-box">
+        <div className="search-input">
+          <input
+            name="keyword"
             ref={register}
-            className="include_no_answer"
-          >
-            <option value="1">全て</option>
-            <option value="2">回答あり</option>
-            <option value="3">回答なし</option>
-          </select>
+            placeholder="なんかを聞きたいの？"
+            aria-label="なんかを聞きたいの？"
+          />
+          <input type="submit" value="検索" disabled={isLoading} />
         </div>
-      </form>
-
-      <button
-        className="float-right"
-        type="button"
-        onClick={() => {
-          router.push({
-            pathname: '/new-question',
-            query: {
-              keyword: getValues('keyword'),
-            },
-          });
-        }}
-      >
-        質問
-      </button>
-    </div>
+      </div>
+      <div>
+        <select name="languageId" ref={register} className="search-lauguage">
+          <option value="1">日本語</option>
+          <option value="2">英語</option>
+        </select>
+      </div>
+      <div>
+        <select name="sortId" ref={register} className="sort">
+          <option value="1">日付</option>
+          <option value="2">役立Count</option>
+          <option value="3">回答者数</option>
+        </select>
+      </div>
+      <div>
+        <select
+          name="includeNoAnswer"
+          ref={register}
+          className="include_no_answer"
+        >
+          <option value="1">全て</option>
+          <option value="2">回答あり</option>
+          <option value="3">回答なし</option>
+        </select>
+      </div>
+    </form>
   );
 };
 
