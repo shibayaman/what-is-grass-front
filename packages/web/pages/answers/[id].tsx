@@ -1,4 +1,4 @@
-import AnswerList from '../../components/AnswerList';
+import AnswerItem from '../../components/AnswerItem';
 import { useLazyGetAnswersQuery } from '@what-is-grass/shared';
 import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -27,7 +27,10 @@ const QuestionAnswer: React.FC = () => {
           この見出しに回答する
         </button>
       )}
-      <div>{data && <AnswerList answers={data} />}</div>
+      {data &&
+        data.map((answer) => (
+          <AnswerItem key={answer.answer_id} answer={answer} />
+        ))}
       {isLoading ? 'ロード中...' : null}
     </div>
   );

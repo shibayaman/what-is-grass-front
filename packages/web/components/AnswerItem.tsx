@@ -1,21 +1,23 @@
 import React from 'react';
 import { Answer } from '@what-is-grass/shared';
 
-type Props = Answer;
+type Props = {
+  answer: Answer;
+};
 
-const AnswerItem: React.FC<Props> = (props) => {
+const AnswerItem: React.FC<Props> = ({ answer }) => {
   return (
     <div>
       <h2>
-        回答する見出しのid{props.index_id} {props.answer_id}
+        回答する見出しのid{answer.index_id} {answer.answer_id}
       </h2>
       <p>
-        回答内容：{props.definition}
-        {props.origin}
+        回答内容：{answer.definition}
+        {answer.origin}
       </p>
-      <p>回答者のid： {props.user_id}</p>
+      <p>回答者のid： {answer.user_id}</p>
       <p>
-        役に立った回数:{props.informative_count}/{props.date}
+        役に立った回数:{answer.informative_count}/{answer.date}
       </p>
     </div>
   );
