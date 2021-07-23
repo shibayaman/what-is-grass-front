@@ -1,32 +1,61 @@
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-
+import {
+  useSelector,
+  useDispatch,
+  useLogoutMutation,
+  loggedOut,
+} from '@what-is-grass/shared';
 type Props = {
   children?: ReactNode;
   title?: string;
 };
 
-const Layout: React.FC<Props> = ({ children, title = 'default title' }) => (
-  <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
-    <header>
-      <nav>
-        <Link href="/">
-          <a>Home</a>
-        </Link>{' '}
-        |{' '}
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </nav>
-    </header>
-    {children}
-  </div>
-);
+const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const [logout, { isLoading }] = useLogoutMutation();
+  const onLogoutHandler = () => {
+    logout();
+    dispatch(loggedOut());
+  };
+
+  return (
+    <div>
+      <Head>
+        <title>{title}</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <header>
+        <nav>
+          <Link href="/">
+            <a>Home</a>
+          </Link>{' '}
+          |{' '}
+          <Link href="/about">
+            <a>About</a>
+          </Link>
+        </nav>
+      </header>
+      {user ? (
+        <div>
+          {user.username}{' '}
+          <button
+            type="button"
+            onClick={() => onLogoutHandler()}
+            disabled={isLoading}
+          >
+            ログアウト
+          </button>
+        </div>
+      ) : (
+        <Link href="/">ログイン</Link>
+      )}
+      {children}
+    </div>
+  );
+};
 
 export default Layout;
