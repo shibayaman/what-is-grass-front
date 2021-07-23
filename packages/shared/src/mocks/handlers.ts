@@ -2,7 +2,7 @@ import { rest } from 'msw';
 import {
   editUser,
   getUser,
-  loginUser,
+  login,
   logout,
   newUser,
   getLoginUser,
@@ -24,6 +24,6 @@ export const handlers = [
   rest.post('/answer', newAnswer),
   rest.post('/signup', newUser),
   rest.post('/user/edit', editUser),
-  rest.post('/login', loginUser),
+  rest.post('/login', login),
   rest.post('/logout', logout),
 ];

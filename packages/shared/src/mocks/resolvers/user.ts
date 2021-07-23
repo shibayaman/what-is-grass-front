@@ -33,7 +33,7 @@ export const editUser: Resolver = (_, res, ctx) => {
   );
 };
 
-export const loginUser: Resolver = (_, res, ctx) => {
+export const login: Resolver = (_, res, ctx) => {
   return res(
     ctx.status(201),
     ctx.json({
