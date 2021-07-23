@@ -45,6 +45,10 @@ export const loginUser: Resolver = (_, res, ctx) => {
   );
 };
 
+export const logout: Resolver = (_, res, ctx) => {
+  return res(ctx.status(204));
+};
+
 export const getLoginUser: Resolver = (_, res, ctx) => {
   return res(
     ctx.status(200),

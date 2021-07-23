@@ -18,6 +18,8 @@ import {
 import {
   LoginRequest,
   LoginResponse,
+  LogoutRequest,
+  LogoutResponse,
   GetLoginUserRequest,
   GetLoginUserResponse,
 } from '../../types/auth';
@@ -84,6 +86,12 @@ export const wordApi = createApi({
         body,
       }),
     }),
+    logout: builder.mutation<LogoutResponse, LogoutRequest>({
+      query: () => ({
+        url: 'logout',
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -97,3 +105,4 @@ export const useGetAnswersQuery = wordApi.endpoints.getAnswers.useQuery;
 export const useAddAnswerMutation = wordApi.endpoints.addAnswer.useMutation;
 export const useGetLoginUserQuery = wordApi.endpoints.getLoginUser.useQuery;
 export const useLoginMutation = wordApi.endpoints.login.useMutation;
+export const useLogoutMutation = wordApi.endpoints.logout.useMutation;

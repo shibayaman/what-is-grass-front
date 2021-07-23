@@ -3,6 +3,7 @@ import {
   editUser,
   getUser,
   loginUser,
+  logout,
   newUser,
   getLoginUser,
 } from './resolvers/user';
@@ -24,4 +25,5 @@ export const handlers = [
   rest.post('/signup', newUser),
   rest.post('/user/edit', editUser),
   rest.post('/login', loginUser),
+  rest.post('/logout', logout),
 ];
