@@ -1,4 +1,5 @@
 import Layout from '../components/Layout';
+import PrivatePage from '../components/PrivatePage';
 import React from 'react';
 import IndexItem from '../components/IndexItem';
 import { useGetUserIndicesQuery } from '@what-is-grass/shared';
@@ -35,51 +36,53 @@ const MyQuestions: React.FC = () => {
   const { data: questions } = useGetUserIndicesQuery(requestBody);
 
   return (
-    <Layout title="Search">
-      <h1>質問した見出し一覧</h1>
-      <label>
-        言語で絞る:
-        <select
-          name="languageId"
-          ref={register({ valueAsNumber: true })}
-          className="search-lauguage"
-        >
-          <option value={NOT_SELECTED}>全て</option>
-          <option value="1">日本語</option>
-          <option value="2">英語</option>
-        </select>
-      </label>
-      <br />
-      <label>
-        並び替え:
-        <select
-          name="sortId"
-          ref={register({ valueAsNumber: true })}
-          className="sort"
-        >
-          <option value="1">日付</option>
-          <option value="2">役立Count</option>
-          <option value="3">回答者数</option>
-        </select>
-      </label>
-      <br />
-      <label>
-        回答状況で絞る:
-        <select
-          name="includeNoAnswerId"
-          ref={register({ valueAsNumber: true })}
-          className="include_no_answer"
-        >
-          <option value="1">全て</option>
-          <option value="2">回答あり</option>
-          <option value="3">回答なし</option>
-        </select>
-      </label>
-      {questions &&
-        questions.map((question) => (
-          <IndexItem key={question.index_id} question={question} />
-        ))}
-    </Layout>
+    <PrivatePage redirectTo="/">
+      <Layout title="Search">
+        <h1>質問した見出し一覧</h1>
+        <label>
+          言語で絞る:
+          <select
+            name="languageId"
+            ref={register({ valueAsNumber: true })}
+            className="search-lauguage"
+          >
+            <option value={NOT_SELECTED}>全て</option>
+            <option value="1">日本語</option>
+            <option value="2">英語</option>
+          </select>
+        </label>
+        <br />
+        <label>
+          並び替え:
+          <select
+            name="sortId"
+            ref={register({ valueAsNumber: true })}
+            className="sort"
+          >
+            <option value="1">日付</option>
+            <option value="2">役立Count</option>
+            <option value="3">回答者数</option>
+          </select>
+        </label>
+        <br />
+        <label>
+          回答状況で絞る:
+          <select
+            name="includeNoAnswerId"
+            ref={register({ valueAsNumber: true })}
+            className="include_no_answer"
+          >
+            <option value="1">全て</option>
+            <option value="2">回答あり</option>
+            <option value="3">回答なし</option>
+          </select>
+        </label>
+        {questions &&
+          questions.map((question) => (
+            <IndexItem key={question.index_id} question={question} />
+          ))}
+      </Layout>
+    </PrivatePage>
   );
 };
 export default MyQuestions;

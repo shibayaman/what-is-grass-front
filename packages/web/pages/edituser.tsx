@@ -1,4 +1,5 @@
 import Layout from '../components/Layout';
+import PrivatePage from '../components/PrivatePage';
 import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -40,25 +41,27 @@ const Edit: React.FC = () => {
   }, []);
 
   return (
-    <Layout title="UserEdit">
-      <h1>ユーザ情報変更画面</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="well">
-          <h4>ユーザ情報</h4>
-          <div>
-            <label>ユーザ名</label>
-            <input type="text" name="username" ref={register} />
-            {errors.username?.message}
+    <PrivatePage redirectTo="/">
+      <Layout title="UserEdit">
+        <h1>ユーザ情報変更画面</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="well">
+            <h4>ユーザ情報</h4>
+            <div>
+              <label>ユーザ名</label>
+              <input type="text" name="username" ref={register} />
+              {errors.username?.message}
+            </div>
+            <div>
+              <label>メールアドレス</label>
+              <input type="text" name="email" ref={register} />
+              {errors.email?.message}
+            </div>
+            <button type="submit">変更</button>
           </div>
-          <div>
-            <label>メールアドレス</label>
-            <input type="text" name="email" ref={register} />
-            {errors.email?.message}
-          </div>
-          <button type="submit">変更</button>
-        </div>
-      </form>
-    </Layout>
+        </form>
+      </Layout>
+    </PrivatePage>
   );
 };
 export default Edit;
