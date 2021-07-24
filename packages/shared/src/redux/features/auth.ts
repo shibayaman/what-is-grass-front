@@ -3,8 +3,10 @@ import { User } from '../../types/auth';
 
 const initialState: {
   user: User | null;
+  initialized: boolean;
 } = {
   user: null,
+  initialized: false,
 };
 
 const authSlice = createSlice({
@@ -17,8 +19,11 @@ const authSlice = createSlice({
     loggedOut: (state) => {
       state.user = null;
     },
+    initialized: (state) => {
+      state.initialized = true;
+    },
   },
 });
 
-export const { loggedIn, loggedOut } = authSlice.actions;
+export const { loggedIn, loggedOut, initialized } = authSlice.actions;
 export const authReducer = authSlice.reducer;

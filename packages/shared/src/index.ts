@@ -3,7 +3,7 @@ export { worker } from './mocks/browser';
 export { server } from './mocks/server';
 export { store } from './redux/store';
 export { searchTriggered } from './redux/features/question';
-export { loggedIn, loggedOut } from './redux/features/auth';
+export { loggedIn, loggedOut, initialized } from './redux/features/auth';
 export {
   useAppDispatch as useDispatch,
   useAppSelector as useSelector,
