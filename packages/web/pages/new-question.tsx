@@ -28,7 +28,7 @@ const newQuestionFormSchema = yup.object({
   languageId: yup.number().required(),
 });
 
-const IndexPage: React.FC = () => {
+const NewQuestionPage: React.FC = () => {
   const { register, errors, setValue, handleSubmit } = useForm<FormValue>({
     resolver: yupResolver(newQuestionFormSchema),
   });
@@ -84,4 +84,4 @@ const IndexPage: React.FC = () => {
   );
 };
 
-export default IndexPage;
+export default NewQuestionPage;

@@ -26,7 +26,7 @@ const newUserFormSchema = yup.object({
     .oneOf([yup.ref('password')]),
 });
 
-const NewUser: React.FC = () => {
+const RegisterPage: React.FC = () => {
   const [createAccount, { isLoading }] = useRegisterMutation();
   const dispatch = useDispatch();
 
@@ -117,4 +117,4 @@ const NewUser: React.FC = () => {
   );
 };
 
-export default NewUser;
+export default RegisterPage;

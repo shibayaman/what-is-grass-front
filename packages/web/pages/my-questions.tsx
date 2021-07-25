@@ -13,7 +13,7 @@ type FormValue = {
   sortId: number;
 };
 
-const MyQuestions: React.FC = () => {
+const MyQuestionsPage: React.FC = () => {
   const { register, watch } = useForm<FormValue>({
     defaultValues: {
       languageId: NOT_SELECTED,
@@ -85,4 +85,4 @@ const MyQuestions: React.FC = () => {
     </PrivatePage>
   );
 };
-export default MyQuestions;
+export default MyQuestionsPage;

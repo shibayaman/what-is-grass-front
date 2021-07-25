@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import AnswerItem from '../../components/AnswerItem';
 import Layout from '../../components/Layout';
 
-const QuestionAnswer: React.FC = () => {
+const AnswersPage: React.FC = () => {
   const [triggerGetAnswersQuery, { data, isLoading }] =
     useLazyGetAnswersQuery();
   const user = useSelector((state) => state.auth.user);
@@ -52,4 +52,4 @@ const QuestionAnswer: React.FC = () => {
   );
 };
 
-export default QuestionAnswer;
+export default AnswersPage;

@@ -15,7 +15,7 @@ const editUserFormSchema = yup.object({
   email: yup.string().required().email(),
 });
 
-const Edit: React.FC = () => {
+const EditUserPage: React.FC = () => {
   const { register, errors, setValue, handleSubmit } = useForm<FormValue>({
     resolver: yupResolver(editUserFormSchema),
   });
@@ -64,4 +64,4 @@ const Edit: React.FC = () => {
     </PrivatePage>
   );
 };
-export default Edit;
+export default EditUserPage;
