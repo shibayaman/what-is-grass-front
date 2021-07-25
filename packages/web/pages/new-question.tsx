@@ -45,7 +45,7 @@ const IndexPage: React.FC = () => {
     if (keyword) {
       setValue('index', keyword);
     }
-  }, [keyword]);
+  }, [keyword, setValue]);
 
   return (
     <PrivatePage redirectTo="/">

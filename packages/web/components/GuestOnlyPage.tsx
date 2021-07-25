@@ -13,7 +13,7 @@ const GuestOnlyPage: FC<{ redirectTo: string }> = ({
     if (user !== null) {
       router.replace(redirectTo);
     }
-  }, [user, router]);
+  }, [user, router, redirectTo]);
 
   return <>{children}</>;
 };

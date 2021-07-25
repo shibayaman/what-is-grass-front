@@ -38,7 +38,7 @@ const Edit: React.FC = () => {
       setValue('email', data.email);
     };
     callUser();
-  }, []);
+  }, [setValue]);
 
   return (
     <PrivatePage redirectTo="/">

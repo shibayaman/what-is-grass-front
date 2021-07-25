@@ -10,14 +10,14 @@ const QuestionAnswer: React.FC = () => {
     useLazyGetAnswersQuery();
   const user = useSelector((state) => state.auth.user);
 
-  const { query, isReady, push: routerPush } = useRouter();
+  const { query, push: routerPush } = useRouter();
   const indexId = query.id as string;
 
   useEffect(() => {
-    if (isReady) {
+    if (indexId) {
       triggerGetAnswersQuery({ index_id: +indexId });
     }
-  }, [isReady]);
+  }, [indexId, triggerGetAnswersQuery]);
 
   const handleNewAnswerClick = () => {
     routerPush(`/new-answer/${indexId}`);
