@@ -1,15 +1,14 @@
-import React from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
+  Index,
   searchTriggered,
-  useSelector,
   useDispatch,
   useGetIndicesQuery,
-  Index,
+  useSelector,
 } from '@what-is-grass/shared';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { shallowEqual } from 'react-redux';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 type Props = {

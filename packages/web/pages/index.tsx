@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import GuestOnlyPage from '../components/GuestOnlyPage';
 import Layout from '../components/Layout';
 import Login from '../components/Login';
-import GuestOnlyPage from '../components/GuestOnlyPage';
 
 const IndexPage: React.FC = () => {
   return (

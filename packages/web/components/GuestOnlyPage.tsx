@@ -1,6 +1,6 @@
-import { FC, useEffect } from 'react';
 import { useSelector } from '@what-is-grass/shared';
 import { useRouter } from 'next/router';
+import { FC, useEffect } from 'react';
 
 const GuestOnlyPage: FC<{ redirectTo: string }> = ({
   redirectTo,
@@ -13,7 +13,7 @@ const GuestOnlyPage: FC<{ redirectTo: string }> = ({
     if (user !== null) {
       router.replace(redirectTo);
     }
-  }, [user, router]);
+  }, [user, router, redirectTo]);
 
   return <>{children}</>;
 };

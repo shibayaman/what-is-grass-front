@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { questionReducer } from './features/question';
 import { authReducer } from './features/auth';
+import { questionReducer } from './features/question';
 import { wordApi } from './services/word';
 
 export const store = configureStore({

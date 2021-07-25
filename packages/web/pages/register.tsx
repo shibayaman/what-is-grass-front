@@ -1,13 +1,13 @@
-import Layout from '../components/Layout';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
-  useRegisterMutation,
   loggedIn,
   useDispatch,
+  useRegisterMutation,
 } from '@what-is-grass/shared';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import GuestOnlyPage from '../components/GuestOnlyPage';
+import Layout from '../components/Layout';
 
 type FormValue = {
   username: string;
@@ -26,7 +26,7 @@ const newUserFormSchema = yup.object({
     .oneOf([yup.ref('password')]),
 });
 
-const NewUser: React.FC = () => {
+const RegisterPage: React.FC = () => {
   const [createAccount, { isLoading }] = useRegisterMutation();
   const dispatch = useDispatch();
 
@@ -117,4 +117,4 @@ const NewUser: React.FC = () => {
   );
 };
 
-export default NewUser;
+export default RegisterPage;

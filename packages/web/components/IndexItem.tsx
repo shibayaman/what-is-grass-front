@@ -1,6 +1,6 @@
-import React from 'react';
 import { Index } from '@what-is-grass/shared';
 import Link from 'next/link';
+import React from 'react';
 
 type Props = {
   question: Index;

@@ -1,9 +1,9 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import Layout from '../components/Layout';
 import PrivatePage from '../components/PrivatePage';
-import { useEffect } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 
 type FormValue = {
   username: string;
@@ -15,7 +15,7 @@ const editUserFormSchema = yup.object({
   email: yup.string().required().email(),
 });
 
-const Edit: React.FC = () => {
+const EditUserPage: React.FC = () => {
   const { register, errors, setValue, handleSubmit } = useForm<FormValue>({
     resolver: yupResolver(editUserFormSchema),
   });
@@ -38,7 +38,7 @@ const Edit: React.FC = () => {
       setValue('email', data.email);
     };
     callUser();
-  }, []);
+  }, [setValue]);
 
   return (
     <PrivatePage redirectTo="/">
@@ -64,4 +64,4 @@ const Edit: React.FC = () => {
     </PrivatePage>
   );
 };
-export default Edit;
+export default EditUserPage;

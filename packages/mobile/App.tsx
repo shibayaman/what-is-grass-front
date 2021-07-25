@@ -1,7 +1,7 @@
+import { greet } from '@what-is-grass/shared';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { greet } from '@what-is-grass/shared';
 
 export default function App(): React.ReactElement {
   return (

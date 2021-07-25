@@ -1,11 +1,11 @@
-import Layout from '../components/Layout';
-import PrivatePage from '../components/PrivatePage';
-import React, { useEffect } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { useAddIndexMutation } from '@what-is-grass/shared';
 import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import Layout from '../components/Layout';
+import PrivatePage from '../components/PrivatePage';
 
 const getLanguages = () => [
   {
@@ -28,7 +28,7 @@ const newQuestionFormSchema = yup.object({
   languageId: yup.number().required(),
 });
 
-const IndexPage: React.FC = () => {
+const NewQuestionPage: React.FC = () => {
   const { register, errors, setValue, handleSubmit } = useForm<FormValue>({
     resolver: yupResolver(newQuestionFormSchema),
   });
@@ -45,7 +45,7 @@ const IndexPage: React.FC = () => {
     if (keyword) {
       setValue('index', keyword);
     }
-  }, [keyword]);
+  }, [keyword, setValue]);
 
   return (
     <PrivatePage redirectTo="/">
@@ -84,4 +84,4 @@ const IndexPage: React.FC = () => {
   );
 };
 
-export default IndexPage;
+export default NewQuestionPage;

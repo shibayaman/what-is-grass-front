@@ -1,6 +1,6 @@
-import { FC, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { useSelector } from '@what-is-grass/shared';
+import { useRouter } from 'next/router';
+import { FC, useEffect } from 'react';
 
 const PrivatePage: FC<{ redirectTo: string }> = ({ redirectTo, children }) => {
   const user = useSelector((state) => state.auth.user);

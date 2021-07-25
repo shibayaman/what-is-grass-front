@@ -1,23 +1,23 @@
+import { useLazyGetAnswersQuery, useSelector } from '@what-is-grass/shared';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import AnswerItem from '../../components/AnswerItem';
 import Layout from '../../components/Layout';
-import { useLazyGetAnswersQuery, useSelector } from '@what-is-grass/shared';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { useEffect } from 'react';
 
-const QuestionAnswer: React.FC = () => {
+const AnswersPage: React.FC = () => {
   const [triggerGetAnswersQuery, { data, isLoading }] =
     useLazyGetAnswersQuery();
   const user = useSelector((state) => state.auth.user);
 
-  const { query, isReady, push: routerPush } = useRouter();
+  const { query, push: routerPush } = useRouter();
   const indexId = query.id as string;
 
   useEffect(() => {
-    if (isReady) {
+    if (indexId) {
       triggerGetAnswersQuery({ index_id: +indexId });
     }
-  }, [isReady]);
+  }, [indexId, triggerGetAnswersQuery]);
 
   const handleNewAnswerClick = () => {
     routerPush(`/new-answer/${indexId}`);
@@ -52,4 +52,4 @@ const QuestionAnswer: React.FC = () => {
   );
 };
 
-export default QuestionAnswer;
+export default AnswersPage;

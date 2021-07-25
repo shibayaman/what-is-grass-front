@@ -1,5 +1,5 @@
-import React from 'react';
 import { Answer } from '@what-is-grass/shared';
+import React from 'react';
 
 type Props = {
   answer: Answer;

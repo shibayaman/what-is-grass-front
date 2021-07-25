@@ -1,11 +1,11 @@
-import Layout from '../components/Layout';
-import { useState } from 'react';
-import Link from 'next/link';
-import SearchBar from '../components/SearchBar';
-import IndexItem from '../components/IndexItem';
 import { Index, useSelector } from '@what-is-grass/shared';
+import Link from 'next/link';
+import { useState } from 'react';
+import IndexItem from '../components/IndexItem';
+import Layout from '../components/Layout';
+import SearchBar from '../components/SearchBar';
 
-const Search: React.FC = () => {
+const SearchPage: React.FC = () => {
   const [questions, setQuestions] = useState<Index[]>([]);
   const keyword = useSelector(
     (state) => state.questions.latestSearchRequest?.keyword ?? null
@@ -47,4 +47,4 @@ const Search: React.FC = () => {
     </Layout>
   );
 };
-export default Search;
+export default SearchPage;
