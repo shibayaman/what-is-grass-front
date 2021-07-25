@@ -7,6 +7,7 @@ import {
   useDispatch,
 } from '@what-is-grass/shared';
 import * as yup from 'yup';
+import GuestOnlyPage from '../components/GuestOnlyPage';
 
 type FormValue = {
   username: string;
@@ -53,64 +54,66 @@ const NewUser: React.FC = () => {
   };
 
   return (
-    <Layout title="New User">
-      <h1>ユーザー登録画面</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="user-information">
-          <div>
-            <p>ユーザ名</p>
-            <input
-              className="username"
-              name="username"
-              ref={register()}
-              type="text"
-            />
-            {errors.username?.message}
+    <GuestOnlyPage redirectTo="my-top">
+      <Layout title="New User">
+        <h1>ユーザー登録画面</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="user-information">
+            <div>
+              <p>ユーザ名</p>
+              <input
+                className="username"
+                name="username"
+                ref={register()}
+                type="text"
+              />
+              {errors.username?.message}
+            </div>
+            <div>
+              <p>メールアドレス</p>
+              <input
+                className="email"
+                name="email"
+                type="text"
+                ref={register()}
+              />
+              {errors.email?.message}
+            </div>
+            <div>
+              <p>パスワード</p>
+              <input
+                className="password"
+                name="password"
+                type="password"
+                ref={register()}
+                // onChangeの発火元フォームのみrevalidateされるので
+                // パスワード確認フォームは手動でrevalidateする
+                onChange={() => {
+                  if (isSubmitted) {
+                    trigger('repeatPassword');
+                  }
+                }}
+              />
+              {errors.password?.message}
+            </div>
+            <br />
+            <div>
+              <p>パスワード確認</p>
+              <input
+                className="repeatpassword"
+                name="repeatPassword"
+                type="password"
+                ref={register()}
+              ></input>
+              {errors.repeatPassword?.message}
+            </div>
+            <div>
+              <input type="submit" value="登録" disabled={isLoading} />
+            </div>
           </div>
-          <div>
-            <p>メールアドレス</p>
-            <input
-              className="email"
-              name="email"
-              type="text"
-              ref={register()}
-            />
-            {errors.email?.message}
-          </div>
-          <div>
-            <p>パスワード</p>
-            <input
-              className="password"
-              name="password"
-              type="password"
-              ref={register()}
-              // onChangeの発火元フォームのみrevalidateされるので
-              // パスワード確認フォームは手動でrevalidateする
-              onChange={() => {
-                if (isSubmitted) {
-                  trigger('repeatPassword');
-                }
-              }}
-            />
-            {errors.password?.message}
-          </div>
-          <br />
-          <div>
-            <p>パスワード確認</p>
-            <input
-              className="repeatpassword"
-              name="repeatPassword"
-              type="password"
-              ref={register()}
-            ></input>
-            {errors.repeatPassword?.message}
-          </div>
-          <div>
-            <input type="submit" value="登録" disabled={isLoading} />
-          </div>
-        </div>
-      </form>
-    </Layout>
+        </form>
+      </Layout>
+    </GuestOnlyPage>
   );
 };
 
