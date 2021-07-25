@@ -1,18 +1,18 @@
 import { rest } from 'msw';
+import { getAnswer, newAnswer } from './resolvers/answer';
+import {
+  getQuestions,
+  getUserQuestions,
+  newQuestion,
+} from './resolvers/question';
 import {
   editUser,
+  getLoginUser,
   getUser,
   login,
   logout,
   newUser,
-  getLoginUser,
 } from './resolvers/user';
-import {
-  newQuestion,
-  getQuestions,
-  getUserQuestions,
-} from './resolvers/question';
-import { newAnswer, getAnswer } from './resolvers/answer';
 
 export const handlers = [
   rest.get('/user', getUser),

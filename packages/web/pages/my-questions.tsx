@@ -1,9 +1,9 @@
+import { useGetUserIndicesQuery } from '@what-is-grass/shared';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import IndexItem from '../components/IndexItem';
 import Layout from '../components/Layout';
 import PrivatePage from '../components/PrivatePage';
-import React from 'react';
-import IndexItem from '../components/IndexItem';
-import { useGetUserIndicesQuery } from '@what-is-grass/shared';
-import { useForm } from 'react-hook-form';
 
 const NOT_SELECTED = -1;
 

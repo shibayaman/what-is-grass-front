@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
 import {
-  useGetLoginUserQuery,
-  loggedIn,
   initialized,
+  loggedIn,
   useDispatch,
+  useGetLoginUserQuery,
 } from '@what-is-grass/shared';
+import { useEffect, useRef } from 'react';
 
 const WithUser: React.FC = ({ children }) => {
   const { data: user, isLoading } = useGetLoginUserQuery();

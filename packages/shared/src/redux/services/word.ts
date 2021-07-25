@@ -1,14 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
-  Index,
-  NewIndexResponse,
-  NewIndexRequest,
-  GetIndicesRequest,
-  GetIndicesResponse,
-  GetUserIndicesRequest,
-  GetUserIndicesResponse,
-} from '../../types/indexType';
-import {
   Answer,
   NewAnswerRequest,
   NewAnswerResponse,
@@ -16,15 +7,24 @@ import {
   GetANswersResponse,
 } from '../../types/answer';
 import {
+  GetLoginUserRequest,
+  GetLoginUserResponse,
   LoginRequest,
   LoginResponse,
   LogoutRequest,
   LogoutResponse,
-  GetLoginUserRequest,
-  GetLoginUserResponse,
   RegisterRequest,
   RegisterResponse,
 } from '../../types/auth';
+import {
+  GetIndicesRequest,
+  GetIndicesResponse,
+  GetUserIndicesRequest,
+  GetUserIndicesResponse,
+  Index,
+  NewIndexRequest,
+  NewIndexResponse,
+} from '../../types/indexType';
 
 // mswが有効化される前にクエリーが飛んじゃう謎の挙動があったので
 // デフォルトのfetchをPromiseでラップしてみたら期待通りに動いた。

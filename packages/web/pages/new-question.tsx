@@ -1,11 +1,11 @@
-import Layout from '../components/Layout';
-import PrivatePage from '../components/PrivatePage';
-import React, { useEffect } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { useAddIndexMutation } from '@what-is-grass/shared';
 import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import Layout from '../components/Layout';
+import PrivatePage from '../components/PrivatePage';
 
 const getLanguages = () => [
   {

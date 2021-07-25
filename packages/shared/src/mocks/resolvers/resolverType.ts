@@ -1,9 +1,9 @@
 import {
-  ResponseResolver,
-  RestRequest,
   DefaultRequestBody,
   RequestParams,
+  ResponseResolver,
   RestContext,
+  RestRequest,
 } from 'msw';
 
 export type Resolver = ResponseResolver<

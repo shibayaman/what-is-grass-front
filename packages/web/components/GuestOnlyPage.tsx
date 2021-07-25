@@ -1,6 +1,6 @@
-import { FC, useEffect } from 'react';
 import { useSelector } from '@what-is-grass/shared';
 import { useRouter } from 'next/router';
+import { FC, useEffect } from 'react';
 
 const GuestOnlyPage: FC<{ redirectTo: string }> = ({
   redirectTo,

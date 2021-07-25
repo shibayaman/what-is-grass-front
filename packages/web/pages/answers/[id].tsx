@@ -1,9 +1,9 @@
+import { useLazyGetAnswersQuery, useSelector } from '@what-is-grass/shared';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import AnswerItem from '../../components/AnswerItem';
 import Layout from '../../components/Layout';
-import { useLazyGetAnswersQuery, useSelector } from '@what-is-grass/shared';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { useEffect } from 'react';
 
 const QuestionAnswer: React.FC = () => {
   const [triggerGetAnswersQuery, { data, isLoading }] =
