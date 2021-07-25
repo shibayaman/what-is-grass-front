@@ -19,6 +19,7 @@ export {
   useGetLoginUserQuery,
   useLoginMutation,
   useLogoutMutation,
+  useRegisterMutation,
 } from './redux/services/word';
 export { Index } from './types/indexType';
 export { Answer } from './types/answer';

@@ -22,6 +22,8 @@ import {
   LogoutResponse,
   GetLoginUserRequest,
   GetLoginUserResponse,
+  RegisterRequest,
+  RegisterResponse,
 } from '../../types/auth';
 
 // mswが有効化される前にクエリーが飛んじゃう謎の挙動があったので
@@ -92,6 +94,13 @@ export const wordApi = createApi({
         method: 'POST',
       }),
     }),
+    register: builder.mutation<RegisterResponse, RegisterRequest>({
+      query: (body) => ({
+        url: '/signup',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -106,3 +115,4 @@ export const useAddAnswerMutation = wordApi.endpoints.addAnswer.useMutation;
 export const useGetLoginUserQuery = wordApi.endpoints.getLoginUser.useQuery;
 export const useLoginMutation = wordApi.endpoints.login.useMutation;
 export const useLogoutMutation = wordApi.endpoints.logout.useMutation;
+export const useRegisterMutation = wordApi.endpoints.register.useMutation;

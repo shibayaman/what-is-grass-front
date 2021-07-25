@@ -15,3 +15,10 @@ export type LogoutResponse = void;
 
 export type GetLoginUserRequest = void;
 export type GetLoginUserResponse = User;
+
+export type RegisterRequest = {
+  username: string;
+  email: string;
+  password: string;
+};
+export type RegisterResponse = LoginResponse;

@@ -1,6 +1,11 @@
 import Layout from '../components/Layout';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  useRegisterMutation,
+  loggedIn,
+  useDispatch,
+} from '@what-is-grass/shared';
 import * as yup from 'yup';
 
 type FormValue = {
@@ -21,6 +26,9 @@ const newUserFormSchema = yup.object({
 });
 
 const NewUser: React.FC = () => {
+  const [createAccount, { isLoading }] = useRegisterMutation();
+  const dispatch = useDispatch();
+
   const {
     register,
     errors,
@@ -31,18 +39,17 @@ const NewUser: React.FC = () => {
     resolver: yupResolver(newUserFormSchema),
   });
 
-  const onSubmit: SubmitHandler<FormValue> = ({
+  const onSubmit: SubmitHandler<FormValue> = async ({
     username,
     email,
     password,
   }) => {
-    fetch('/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, email, password }),
-    });
+    try {
+      const user = await createAccount({ username, email, password }).unwrap();
+      dispatch(loggedIn(user));
+    } catch {
+      //
+    }
   };
 
   return (
@@ -99,7 +106,7 @@ const NewUser: React.FC = () => {
             {errors.repeatPassword?.message}
           </div>
           <div>
-            <input type="submit" value="登録" />
+            <input type="submit" value="登録" disabled={isLoading} />
           </div>
         </div>
       </form>
