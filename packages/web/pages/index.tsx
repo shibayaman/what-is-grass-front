@@ -1,33 +1,22 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import { greet } from '@what-is-grass/shared';
-import { useState, useEffect } from 'react';
 import Login from '../components/Login';
+import GuestOnlyPage from '../components/GuestOnlyPage';
 
 const IndexPage: React.FC = () => {
-  const [user, setUser] = useState('World');
-
-  useEffect(() => {
-    const callApi = async () => {
-      const res = await fetch('/user');
-      const data = await res.json();
-      setUser(data.username);
-    };
-
-    callApi();
-  }, []);
-
   return (
-    <Layout title="Home">
-      <h1 className="text-xl border-black border-2">{greet(user)}</h1>
-      <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </p>
-      <br />
-      <Login />
-    </Layout>
+    <GuestOnlyPage redirectTo="/my-top">
+      <Layout title="Home">
+        <h1 className="text-xl border-black border-2">Top Page</h1>
+        <p>
+          <Link href="/about">
+            <a>About</a>
+          </Link>
+        </p>
+        <br />
+        <Login />
+      </Layout>
+    </GuestOnlyPage>
   );
 };
 

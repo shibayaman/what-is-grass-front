@@ -1,5 +1,12 @@
 import { rest } from 'msw';
-import { editUser, getUser, loginUser, newUser } from './resolvers/user';
+import {
+  editUser,
+  getUser,
+  login,
+  logout,
+  newUser,
+  getLoginUser,
+} from './resolvers/user';
 import {
   newQuestion,
   getQuestions,
@@ -12,9 +19,11 @@ export const handlers = [
   rest.get('/question', getQuestions),
   rest.get('/user/question-list', getUserQuestions),
   rest.get('/answer', getAnswer),
+  rest.get('/whoami', getLoginUser),
   rest.post('/question', newQuestion),
   rest.post('/answer', newAnswer),
   rest.post('/signup', newUser),
   rest.post('/user/edit', editUser),
-  rest.post('/login', loginUser),
+  rest.post('/login', login),
+  rest.post('/logout', logout),
 ];

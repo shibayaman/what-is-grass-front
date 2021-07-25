@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useLoginMutation, useDispatch, loggedIn } from '@what-is-grass/shared';
 
 type FormValue = {
   email: string;
@@ -14,18 +15,21 @@ const loginFormSchema = yup.object({
 });
 
 const Login: React.FC = () => {
+  const [login, { isLoading, isError: isLoginError }] = useLoginMutation();
+  const dispatch = useDispatch();
   const { register, errors, handleSubmit } = useForm<FormValue>({
     resolver: yupResolver(loginFormSchema),
   });
 
-  const onSubmit: SubmitHandler<FormValue> = ({ email, password }) => {
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
+  const onSubmit: SubmitHandler<FormValue> = async ({ email, password }) => {
+    try {
+      const user = await login({ email, password }).unwrap();
+      dispatch(
+        loggedIn({ id: user.id, username: user.username, email: user.email })
+      );
+    } catch (err) {
+      //
+    }
   };
 
   return (
@@ -42,9 +46,10 @@ const Login: React.FC = () => {
             <input type="password" name="password" ref={register} />
             {errors.password?.message}
           </div>
-          <input type="submit" value="ログイン" />
+          <input type="submit" value="ログイン" disabled={isLoading} />
         </div>
       </div>
+      {isLoginError && 'ログインに失敗しました。'}
     </form>
   );
 };

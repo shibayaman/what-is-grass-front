@@ -1,12 +1,16 @@
-import AnswerList from '../../components/AnswerList';
-import { useLazyGetAnswersQuery } from '@what-is-grass/shared';
-import router, { useRouter } from 'next/router';
+import AnswerItem from '../../components/AnswerItem';
+import Layout from '../../components/Layout';
+import { useLazyGetAnswersQuery, useSelector } from '@what-is-grass/shared';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 const QuestionAnswer: React.FC = () => {
   const [triggerGetAnswersQuery, { data, isLoading }] =
     useLazyGetAnswersQuery();
-  const { query, isReady } = useRouter();
+  const user = useSelector((state) => state.auth.user);
+
+  const { query, isReady, push: routerPush } = useRouter();
   const indexId = query.id as string;
 
   useEffect(() => {
@@ -16,20 +20,35 @@ const QuestionAnswer: React.FC = () => {
   }, [isReady]);
 
   const handleNewAnswerClick = () => {
-    router.push(`/new-answer/${indexId}`);
+    routerPush(`/new-answer/${indexId}`);
   };
 
-  return (
-    <div>
-      <h1>ここは質問回答覧</h1>
-      {indexId && (
+  const makeNewAnswerButton = () => {
+    if (!indexId) {
+      return null;
+    }
+
+    return user ? (
+      <div>
         <button type="button" onClick={handleNewAnswerClick}>
           この見出しに回答する
         </button>
-      )}
-      <div>{data && <AnswerList answers={data} />}</div>
+      </div>
+    ) : (
+      <Link href="/">回答するにはログインしてください</Link>
+    );
+  };
+
+  return (
+    <Layout>
+      <h1>ここは質問回答覧</h1>
+      {makeNewAnswerButton()}
+      {data &&
+        data.map((answer) => (
+          <AnswerItem key={answer.answer_id} answer={answer} />
+        ))}
       {isLoading ? 'ロード中...' : null}
-    </div>
+    </Layout>
   );
 };
 
