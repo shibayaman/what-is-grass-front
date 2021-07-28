@@ -33,31 +33,27 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <header>
-        <nav>
-          <Link href="/">
-            <a>Home</a>
-          </Link>{' '}
-          |{' '}
-          <Link href="/about">
-            <a>About</a>
-          </Link>
-        </nav>
+      <header className="bg-green-500 px-2 py-4 flex justify-between">
+        <Link href="/">
+          <a>
+            <img src="./logo.png" className="w-52" />
+          </a>
+        </Link>
+        {user ? (
+          <div>
+            {user.username}{' '}
+            <button
+              type="button"
+              onClick={() => onLogoutHandler()}
+              disabled={isLoading}
+            >
+              ログアウト
+            </button>
+          </div>
+        ) : (
+          <Link href="/">ログイン</Link>
+        )}
       </header>
-      {user ? (
-        <div>
-          {user.username}{' '}
-          <button
-            type="button"
-            onClick={() => onLogoutHandler()}
-            disabled={isLoading}
-          >
-            ログアウト
-          </button>
-        </div>
-      ) : (
-        <Link href="/">ログイン</Link>
-      )}
       {children}
     </div>
   );
