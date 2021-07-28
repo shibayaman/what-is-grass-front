@@ -2,14 +2,17 @@ import classNames from 'classnames';
 import { forwardRef } from 'react';
 
 type Props = JSX.IntrinsicElements['textarea'] & {
-  size: 'xs' | 'base' | 'lg';
+  size?: 'xs' | 'base' | 'lg';
   name: string;
   isError?: boolean;
   resize?: 'none' | 'vertical' | 'horizontal' | 'both';
 };
 
 const TextArea = forwardRef<HTMLTextAreaElement, Props>(
-  ({ size, name, isError = false, resize = 'both', ...props }, ref) => {
+  (
+    { size = 'base', name, isError = false, resize = 'vertical', ...props },
+    ref
+  ) => {
     const baseStyle = 'leading-relaxed rounded focus:outline-none focus:ring-1';
     const borderStyle = isError
       ? 'border-2 border-red-600 focus:ring-red-400'

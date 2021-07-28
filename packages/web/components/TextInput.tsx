@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { forwardRef } from 'react';
 
 type Props = Omit<JSX.IntrinsicElements['input'], 'size'> & {
-  size: 'xs' | 'base' | 'lg';
-  width: 'xs' | 'base' | 'lg';
+  size?: 'xs' | 'base' | 'lg';
+  width?: 'xs' | 'base' | 'lg';
   name: string;
   isError?: boolean;
 };
@@ -15,7 +15,7 @@ const sizeSchemes = {
 };
 
 const TextInput = forwardRef<HTMLInputElement, Props>(
-  ({ size, width, name, isError = false, ...props }, ref) => {
+  ({ size = 'base', width = 'base', name, isError = false, ...props }, ref) => {
     const baseStyle = 'rounded focus:outline-none focus:ring-1';
     const borderStyle = isError
       ? 'border-2 border-red-600 focus:ring-red-400'

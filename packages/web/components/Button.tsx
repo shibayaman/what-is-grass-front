@@ -10,8 +10,8 @@ type ButtonColorSchemeOptions =
   | 'accent-outline';
 
 type Props = JSX.IntrinsicElements['button'] & {
-  size: 'xs' | 'base' | 'lg';
   variant: ButtonColorSchemeOptions;
+  size?: 'xs' | 'base' | 'lg';
   shadow?: boolean;
 };
 
@@ -29,7 +29,13 @@ const colorSchemes: Record<ButtonColorSchemeOptions, string> = {
   'accent-outline': outlinedColorScheme('orange'),
 };
 
-const Button: FC<Props> = ({ size, variant, shadow, children, ...props }) => {
+const Button: FC<Props> = ({
+  size = 'base',
+  variant,
+  shadow,
+  children,
+  ...props
+}) => {
   const colorScheme = colorSchemes[variant];
   const baseStyle =
     'rounded focus:outline-none focus:ring disabled:opacity-50 disabled:cursor-not-allowed';
