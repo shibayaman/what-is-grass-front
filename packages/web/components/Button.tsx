@@ -38,7 +38,7 @@ const Button: FC<Props> = ({
 }) => {
   const colorScheme = colorSchemes[variant];
   const baseStyle =
-    'rounded focus:outline-none focus:ring disabled:opacity-50 disabled:cursor-not-allowed';
+    'whitespace-nowrap rounded focus:outline-none focus:ring disabled:opacity-50 disabled:cursor-not-allowed';
   const styles = classNames(baseStyle, colorScheme, {
     'shadow-md': shadow,
     'text-xs py-1 px-4': size === 'xs',
