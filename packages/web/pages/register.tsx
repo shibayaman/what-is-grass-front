@@ -4,16 +4,25 @@ import {
   useDispatch,
   useRegisterMutation,
 } from '@what-is-grass/shared';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { NestedValue, SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import GuestOnlyPage from '../components/GuestOnlyPage';
+import LabeledFormElement from '../components/LabeldFormElement';
 import Layout from '../components/Layout';
+import SelectableButton from '../components/SelectableButton';
+
+const languages = [
+  { id: 1, language: '日本語' },
+  { id: 2, language: 'English' },
+  { id: 3, language: '中文' },
+];
 
 type FormValue = {
   username: string;
   email: string;
   password: string;
   repeatPassword: string;
+  languages: NestedValue<number[]>;
 };
 
 const newUserFormSchema = yup.object({
@@ -24,6 +33,10 @@ const newUserFormSchema = yup.object({
     .string()
     .required()
     .oneOf([yup.ref('password')]),
+  languages: yup
+    .array(yup.number())
+    .min(1, '一つは選んでね')
+    .transform((value) => value.filter(Boolean)),
 });
 
 const RegisterPage: React.FC = () => {
@@ -34,9 +47,11 @@ const RegisterPage: React.FC = () => {
     register,
     errors,
     trigger,
+    watch,
     formState: { isSubmitted },
     handleSubmit,
   } = useForm<FormValue>({
+    defaultValues: { languages: [] },
     resolver: yupResolver(newUserFormSchema),
   });
 
@@ -44,7 +59,9 @@ const RegisterPage: React.FC = () => {
     username,
     email,
     password,
+    languages,
   }) => {
+    console.log(languages);
     try {
       const user = await createAccount({ username, email, password }).unwrap();
       dispatch(loggedIn(user));
@@ -53,12 +70,16 @@ const RegisterPage: React.FC = () => {
     }
   };
 
+  const selectedLanguages = watch('languages')
+    .filter(Boolean)
+    .map((id) => +id);
+
   return (
     <GuestOnlyPage redirectTo="my-top">
       <Layout title="New User">
         <h1>ユーザー登録画面</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="user-information">
+          <div className="flex-initial flex-col item-start space-y-10">
             <div>
               <p>ユーザ名</p>
               <input
@@ -107,6 +128,29 @@ const RegisterPage: React.FC = () => {
               ></input>
               {errors.repeatPassword?.message}
             </div>
+            <LabeledFormElement
+              label="話せる言語 (複数可)"
+              error={errors.languages?.message}
+            >
+              <div className="flex flex-wrap gap-x-2 gap-y-2">
+                {languages.map((language, index) => (
+                  <SelectableButton
+                    key={language.id}
+                    type="checkbox"
+                    name={`languages.${index}`}
+                    ref={register}
+                    defaultValue={language.id}
+                    label={language.language}
+                    checked={selectedLanguages.includes(language.id) || false}
+                    onChange={() => {
+                      if (isSubmitted) {
+                        trigger('languages');
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            </LabeledFormElement>
             <div>
               <input type="submit" value="登録" disabled={isLoading} />
             </div>
