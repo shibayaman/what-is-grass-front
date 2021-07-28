@@ -3,13 +3,14 @@ import { forwardRef } from 'react';
 
 type Props = Omit<JSX.IntrinsicElements['input'], 'size'> & {
   size?: 'xs' | 'base' | 'lg';
+  type: 'radio' | 'checkbox';
   name: string;
   label: string;
   checked: boolean;
 };
 
-const RadioButton = forwardRef<HTMLInputElement, Props>(
-  ({ size = 'base', name, label, checked, ...props }, ref) => {
+const SelectableButton = forwardRef<HTMLInputElement, Props>(
+  ({ size = 'base', type, name, label, checked, ...props }, ref) => {
     const baseStyle =
       'px-2 py-1 border border-gray-500 bg-transparent text-gray-500 rounded apearence-none';
 
@@ -25,7 +26,7 @@ const RadioButton = forwardRef<HTMLInputElement, Props>(
       <label className={styles}>
         {label}
         <input
-          type="radio"
+          type={type}
           className="invisible absolute"
           ref={ref}
           name={name}
@@ -36,4 +37,4 @@ const RadioButton = forwardRef<HTMLInputElement, Props>(
   }
 );
 
-export default RadioButton;
+export default SelectableButton;

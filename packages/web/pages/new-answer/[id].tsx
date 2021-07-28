@@ -8,7 +8,7 @@ import Button from '../../components/Button';
 import LabeledFormElement from '../../components/LabeldFormElement';
 import Layout from '../../components/Layout';
 import PrivatePage from '../../components/PrivatePage';
-import RadioButton from '../../components/RadioButton';
+import SelectableButton from '../../components/SelectableButton';
 import TextArea from '../../components/TextArea';
 
 const index = 'クラッシュバンディグー';
@@ -174,8 +174,9 @@ const NewAnswerPage: React.FC = () => {
             >
               <div className="flex flex-wrap gap-x-2 gap-y-2">
                 {categories.map((category) => (
-                  <RadioButton
+                  <SelectableButton
                     key={category.id}
+                    type="radio"
                     name="category"
                     ref={register}
                     value={category.id}
