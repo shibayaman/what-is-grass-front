@@ -179,7 +179,7 @@ const NewAnswerPage: React.FC = () => {
                     type="radio"
                     name="category"
                     ref={register}
-                    value={category.id}
+                    defaultValue={category.id}
                     label={category.category_tag_name}
                     checked={selectedCategory === category.id}
                   />
