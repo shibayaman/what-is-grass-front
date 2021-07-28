@@ -94,18 +94,29 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
           質問する
         </Button>
         {user ? (
-          <div>
+          <div className="flex flex-col">
             {user.username}{' '}
-            <button
+            <Button
+              variant="secondary"
+              size="xs"
               type="button"
               onClick={() => onLogoutHandler()}
               disabled={isLoading}
             >
               ログアウト
-            </button>
+            </Button>
           </div>
         ) : (
-          <Link href="/">ログイン</Link>
+          <Button
+            variant="secondary-outline"
+            size="xs"
+            type="button"
+            onClick={() => {
+              router.push('/');
+            }}
+          >
+            ログイン
+          </Button>
         )}
       </header>
       {children}
