@@ -62,7 +62,7 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
       </Head>
       <header className="bg-green-500 px-2 py-4 flex justify-between">
         <Link href="/">
-          <a>
+          <a className="flex-shrink-0">
             <img src="./logo.png" className="w-52" />
           </a>
         </Link>
