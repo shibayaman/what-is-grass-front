@@ -25,25 +25,35 @@ const SearchPage: React.FC = () => {
   };
 
   return (
-    <Layout title="Search">
-      <h1>ここは検索画面だよ！！</h1>
-      <hr />
-      <SearchBar setQuestions={updateQuestion} />
-      {questions.map((question) => (
-        <IndexItem key={question.index_id} question={question} />
-      ))}
-      {user ? (
-        <div>
-          言葉が見つかりませんか？{' '}
-          <Link href={getNewQuestionUrl()}>こちら</Link>
-          から{keyword && `${keyword}について`}新しく質問しましょう
+    <Layout title="Search | What Is Grass">
+      <div className="flex justify-center">
+        <div className="w-10/12 mt-4 mb-8">
+          <SearchBar setQuestions={updateQuestion} />
+          <div className="my-4 w-6/12 flex flex-col gap-4">
+            {questions.map((question) => (
+              <IndexItem key={question.index_id} question={question} />
+            ))}
+          </div>
+          {user ? (
+            <div>
+              言葉が見つかりませんか？{' '}
+              <Link href={getNewQuestionUrl()}>
+                <a className="text-green-600">こちら</a>
+              </Link>
+              から{keyword && `「${keyword}」について`}新しく質問しましょう
+            </div>
+          ) : (
+            <div>
+              言葉が見つかりませんか？{' '}
+              <Link href="/">
+                <a className="text-green-600">ログイン</a>
+              </Link>
+              して
+              {keyword && `${keyword}について`}新しく質問しましょう
+            </div>
+          )}
         </div>
-      ) : (
-        <div>
-          言葉が見つかりませんか？ <Link href="/">ログイン</Link>して
-          {keyword && `${keyword}について`}新しく質問しましょうて
-        </div>
-      )}
+      </div>
     </Layout>
   );
 };

@@ -1,26 +1,39 @@
 import { Index } from '@what-is-grass/shared';
 import Link from 'next/link';
-import React from 'react';
+import { FC, useState } from 'react';
+import Button from '../components/Button';
 
 type Props = {
   question: Index;
 };
 
-const IndexItem: React.FC<Props> = ({ question }) => {
+const IndexItem: FC<Props> = ({ question }) => {
+  const [isFrequentUser, setIsFrequentUser] = useState(false);
+  const frequentlyUsedCount =
+    question.frequently_used_count + (isFrequentUser ? 1 : 0);
+
   return (
     <Link href={`/answers/${question.index_id}`}>
-      <div
-        style={{ border: '1px solid black', cursor: 'pointer', margin: '1rem' }}
-      >
-        <h4>
-          {question.questioner}:{question.index}
-        </h4>
-
-        <div>{question.best_answer}</div>
-        <div>
-          いいね：{question.frequently_used_count},回答数{question.answer_count}
+      <div className="rounded py-4 px-6 border border-gray-300 shadow-md hover:cursor-pointer">
+        <p className="text-3xl text-green-600 mb-2">{question.index}</p>
+        <p className="text-lg my-2 mx-2">{question.best_answer}</p>
+        <div className="relative whitespace-nowrap">
+          <span>{frequentlyUsedCount}人がよく使ってる</span>
+          <br />
+          <Button
+            variant={isFrequentUser ? 'accent' : 'accent-outline'}
+            size="xs"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsFrequentUser(!isFrequentUser);
+            }}
+          >
+            この単語よく使う!
+          </Button>
+          <span className="absolute right-0">
+            他{Math.max(question.answer_count, 0)}件の回答
+          </span>
         </div>
-        <div>{question.date}</div>
       </div>
     </Link>
   );
