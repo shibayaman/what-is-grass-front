@@ -17,11 +17,17 @@ import {
   RegisterResponse,
 } from '../../types/auth';
 import {
+  DeleteFavoriteIndicesRequest,
+  DeleteFavoriteIndicesResponse,
+  GetFavoriteIndicesRequest,
+  GetFavoriteIndicesResponse,
   GetIndicesRequest,
   GetIndicesResponse,
   GetUserIndicesRequest,
   GetUserIndicesResponse,
   Index,
+  NewFavoriteIndicesRequest,
+  NewFavoriteIndicesResponse,
   NewIndexRequest,
   NewIndexResponse,
 } from '../../types/indexType';
@@ -65,11 +71,36 @@ export const wordApi = createApi({
       }),
       transformResponse: (res: GetUserIndicesResponse) => res.indices,
     }),
+    getFavoriteIndices: builder.query<Index[], GetFavoriteIndicesRequest>({
+      query: (params) => ({
+        url: 'favorite-question',
+        params,
+      }),
+      transformResponse: (res: GetFavoriteIndicesResponse) => res.indices,
+    }),
     addIndex: builder.mutation<NewIndexResponse, NewIndexRequest>({
       query: (body) => ({
         url: `question`,
         method: 'POST',
         body,
+      }),
+    }),
+    addFavoriteIndex: builder.mutation<Index, NewFavoriteIndicesRequest>({
+      query: (body) => ({
+        url: `favorite-question`,
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (res: NewFavoriteIndicesResponse) => res.index,
+    }),
+    removeFavoriteIndex: builder.mutation<
+      DeleteFavoriteIndicesResponse,
+      DeleteFavoriteIndicesRequest
+    >({
+      query: (params) => ({
+        url: `favorite-question`,
+        method: 'DELETE',
+        params,
       }),
     }),
     getAnswers: builder.query<Answer[], GetAnswersRequest>({
@@ -116,7 +147,13 @@ export const wordApi = createApi({
 export const useGetIndicesQuery = wordApi.endpoints.getIndices.useQuery;
 export const useLazyGetIndicesQuery = wordApi.endpoints.getIndices.useLazyQuery;
 export const useGetUserIndicesQuery = wordApi.endpoints.getUserIndices.useQuery;
+export const useGetFavoriteIndicesQuery =
+  wordApi.endpoints.getFavoriteIndices.useQuery;
 export const useAddIndexMutation = wordApi.endpoints.addIndex.useMutation;
+export const useAddFavoriteIndexMutation =
+  wordApi.endpoints.addFavoriteIndex.useMutation;
+export const useRemoveFavoriteIndexMutation =
+  wordApi.endpoints.removeFavoriteIndex.useMutation;
 export const useLazyGetAnswersQuery = wordApi.endpoints.getAnswers.useLazyQuery;
 export const useGetAnswersQuery = wordApi.endpoints.getAnswers.useQuery;
 export const useAddAnswerMutation = wordApi.endpoints.addAnswer.useMutation;
