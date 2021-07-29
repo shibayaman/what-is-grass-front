@@ -44,9 +44,7 @@ const AnswersPage: React.FC = () => {
       <h1>ここは質問回答覧</h1>
       {makeNewAnswerButton()}
       {data &&
-        data.map((answer) => (
-          <AnswerItem key={answer.answer_id} answer={answer} />
-        ))}
+        data.map((answer) => <AnswerItem key={answer.id} answer={answer} />)}
       {isLoading ? 'ロード中...' : null}
     </Layout>
   );

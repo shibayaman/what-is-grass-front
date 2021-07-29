@@ -1,5 +1,5 @@
 export type Answer = {
-  answer_id: number;
+  id: number;
   user_id: number;
   informative_count: number;
   index_id: number;
