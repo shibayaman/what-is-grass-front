@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import GuestOnlyPage from '../components/GuestOnlyPage';
 import Layout from '../components/Layout';
 import Login from '../components/Login';

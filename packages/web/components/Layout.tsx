@@ -1,5 +1,6 @@
 import {
   loggedOut,
+  languages,
   searchTriggered,
   useDispatch,
   useLogoutMutation,
@@ -13,13 +14,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../components/Button';
 import SelectBox from '../components/SelectBox';
 import TextInput from '../components/TextInput';
-
-//APIができたら消す
-const languages = [
-  { id: 1, language: '日本語' },
-  { id: 2, language: 'English' },
-  { id: 3, language: '中文' },
-];
 
 type Props = {
   children?: ReactNode;

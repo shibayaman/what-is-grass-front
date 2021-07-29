@@ -24,3 +24,4 @@ export {
 export { Index } from './types/indexType';
 export { Answer } from './types/answer';
 export { User } from './types/auth';
+export * from './const';

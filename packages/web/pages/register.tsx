@@ -1,5 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
+  community_tags,
+  languages,
   loggedIn,
   useDispatch,
   useRegisterMutation,
@@ -11,18 +13,13 @@ import LabeledFormElement from '../components/LabeldFormElement';
 import Layout from '../components/Layout';
 import SelectableButton from '../components/SelectableButton';
 
-const languages = [
-  { id: 1, language: '日本語' },
-  { id: 2, language: 'English' },
-  { id: 3, language: '中文' },
-];
-
 type FormValue = {
   username: string;
   email: string;
   password: string;
   repeatPassword: string;
   languages: NestedValue<number[]>;
+  community_tags: NestedValue<number[]>;
 };
 
 const newUserFormSchema = yup.object({
@@ -51,7 +48,7 @@ const RegisterPage: React.FC = () => {
     formState: { isSubmitted },
     handleSubmit,
   } = useForm<FormValue>({
-    defaultValues: { languages: [] },
+    defaultValues: { languages: [], community_tags: [] },
     resolver: yupResolver(newUserFormSchema),
   });
 
@@ -75,6 +72,10 @@ const RegisterPage: React.FC = () => {
   };
 
   const selectedLanguages = watch('languages')
+    .filter(Boolean)
+    .map((id) => +id);
+
+  const selectedCommunities = watch('community_tags')
     .filter(Boolean)
     .map((id) => +id);
 
@@ -146,6 +147,31 @@ const RegisterPage: React.FC = () => {
                     defaultValue={language.id}
                     label={language.language}
                     checked={selectedLanguages.includes(language.id) || false}
+                    onChange={() => {
+                      if (isSubmitted) {
+                        trigger('languages');
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            </LabeledFormElement>
+            <LabeledFormElement
+              label="自分の特徴 (複数可)"
+              error={errors.languages?.message}
+            >
+              <div className="flex flex-wrap gap-x-2 gap-y-2">
+                {community_tags.map((community, index) => (
+                  <SelectableButton
+                    key={community.id}
+                    type="checkbox"
+                    name={`community_tags.${index}`}
+                    ref={register}
+                    defaultValue={community.id}
+                    label={community.community_tag_name}
+                    checked={
+                      selectedCommunities.includes(community.id) || false
+                    }
                     onChange={() => {
                       if (isSubmitted) {
                         trigger('languages');
