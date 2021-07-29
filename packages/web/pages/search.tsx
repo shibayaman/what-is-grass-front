@@ -1,4 +1,5 @@
 import { Index, useSelector } from '@what-is-grass/shared';
+import classNames from 'classnames';
 import Link from 'next/link';
 import { useState } from 'react';
 import IndexItem from '../components/IndexItem';
@@ -24,26 +25,43 @@ const SearchPage: React.FC = () => {
     return url;
   };
 
+  const isQuestionsEmpty = questions.length === 0;
+
   return (
-    <Layout title="Search">
-      <h1>ここは検索画面だよ！！</h1>
-      <hr />
-      <SearchBar setQuestions={updateQuestion} />
-      {questions.map((question) => (
-        <IndexItem key={question.id} question={question} />
-      ))}
-      {user ? (
-        <div>
-          言葉が見つかりませんか？{' '}
-          <Link href={getNewQuestionUrl()}>こちら</Link>
-          から{keyword && `${keyword}について`}新しく質問しましょう
+    <Layout title="Search | What Is Grass">
+      <div className="flex justify-center">
+        <div className="w-10/12 mt-4 mb-8">
+          <SearchBar setQuestions={updateQuestion} />
+          <div className="my-4 w-6/12 flex flex-col gap-4">
+            {questions.map((question) => (
+              <IndexItem key={question.id} question={question} />
+            ))}
+          </div>
+          {keyword && (
+            <div className={classNames({ 'text-2xl': isQuestionsEmpty })}>
+              {isQuestionsEmpty
+                ? '言葉が見つかりませんでした。'
+                : '言葉が見つかりませんか？'}{' '}
+              {user ? (
+                <>
+                  <Link href={getNewQuestionUrl()}>
+                    <a className="text-green-600">こちら</a>
+                  </Link>
+                  から
+                </>
+              ) : (
+                <>
+                  <Link href={getNewQuestionUrl()}>
+                    <a className="text-green-600">ログイン</a>
+                  </Link>
+                  して
+                </>
+              )}
+              {keyword && `「${keyword}」について`}新しく質問しましょう
+            </div>
+          )}
         </div>
-      ) : (
-        <div>
-          言葉が見つかりませんか？ <Link href="/">ログイン</Link>して
-          {keyword && `${keyword}について`}新しく質問しましょうて
-        </div>
-      )}
+      </div>
     </Layout>
   );
 };
