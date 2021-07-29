@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAddAnswerMutation } from '@what-is-grass/shared';
+import { categories, useAddAnswerMutation } from '@what-is-grass/shared';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
@@ -12,19 +12,6 @@ import SelectableButton from '../../components/SelectableButton';
 import TextArea from '../../components/TextArea';
 
 const index = 'クラッシュバンディグー';
-const categories = [
-  { id: 1, category_tag_name: 'slang' },
-  { id: 2, category_tag_name: 'formal' },
-  { id: 3, category_tag_name: 'polite' },
-  { id: 4, category_tag_name: 'casual' },
-  { id: 5, category_tag_name: 'offensive' },
-  { id: 6, category_tag_name: 'intelligent' },
-  { id: 7, category_tag_name: 'writtern language' },
-  { id: 8, category_tag_name: 'spoken language' },
-  { id: 9, category_tag_name: 'poetic' },
-  { id: 10, category_tag_name: 'proverb' },
-  { id: 11, category_tag_name: 'obsolete' },
-];
 
 type FormValues = {
   definition: string;

@@ -1,22 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAddIndexMutation } from '@what-is-grass/shared';
+import { languages, useAddIndexMutation } from '@what-is-grass/shared';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import Layout from '../components/Layout';
 import PrivatePage from '../components/PrivatePage';
-
-const getLanguages = () => [
-  {
-    id: 1,
-    language: '英語',
-  },
-  {
-    id: 2,
-    language: '日本語',
-  },
-];
 
 type FormValue = {
   index: string;
@@ -55,7 +44,7 @@ const NewQuestionPage: React.FC = () => {
           <label>
             この言葉は何語?:
             <select name="languageId" ref={register}>
-              {getLanguages().map((l) => (
+              {languages.map((l) => (
                 <option key={l.id} value={l.id}>
                   {l.language}
                 </option>
