@@ -1,24 +1,50 @@
 import { Answer } from '@what-is-grass/shared';
-import React from 'react';
+import { FC, useState } from 'react';
+import Button from '../components/Button';
 
 type Props = {
   answer: Answer;
+  featured?: boolean;
 };
 
-const AnswerItem: React.FC<Props> = ({ answer }) => {
+const AnswerItem: FC<Props> = ({ answer, featured = false }) => {
+  const cardStyle = `rounded py-4 px-6 ${
+    featured
+      ? 'shadow-lg border-2 border-orange-400'
+      : 'shadow-md border border-gray-300'
+  }`;
+
+  const [isInformative, setIsInformative] = useState(false);
+
   return (
-    <div>
-      <h2>
-        回答する見出しのid{answer.index_id} {answer.answer_id}
-      </h2>
-      <p>
-        回答内容：{answer.definition}
-        {answer.origin}
-      </p>
-      <p>回答者のid： {answer.user_id}</p>
-      <p>
-        役に立った回数:{answer.informative_count}/{answer.date}
-      </p>
+    <div className={cardStyle}>
+      {featured && <span className="block text-xl">ベストアンサー</span>}
+      <p className="text-lg my-6 mx-2">{answer.definition}</p>
+      {answer.origin && (
+        <>
+          <label className="block border-b">由来</label>
+          <p className="my-6 mx-2">{answer.origin}</p>
+        </>
+      )}
+      {answer.note && (
+        <>
+          <label className="block border-b">回答者の一言</label>
+          <p className="my-6 mx-2">{answer.note}</p>
+        </>
+      )}
+      <span className="block mt-8">
+        {answer.informative_count}人が役に立ったと言っています
+      </span>
+      <Button
+        variant={isInformative ? 'accent' : 'accent-outline'}
+        size="xs"
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsInformative(!isInformative);
+        }}
+      >
+        役に立った!
+      </Button>
     </div>
   );
 };
