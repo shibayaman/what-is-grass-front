@@ -4,7 +4,7 @@ import {
   NewAnswerRequest,
   NewAnswerResponse,
   GetAnswersRequest,
-  GetANswersResponse,
+  GetAnswersResponse,
 } from '../../types/answer';
 import {
   GetLoginUserRequest,
@@ -69,7 +69,7 @@ export const wordApi = createApi({
         url: 'answer',
         params,
       }),
-      transformResponse: (res: GetANswersResponse) => res.answer,
+      transformResponse: (res: GetAnswersResponse) => res.answers,
     }),
     addAnswer: builder.mutation<NewAnswerResponse, NewAnswerRequest>({
       query: (body) => ({
