@@ -4,7 +4,7 @@ import {
   NewAnswerRequest,
   NewAnswerResponse,
   GetAnswersRequest,
-  GetANswersResponse,
+  GetAnswersResponse,
 } from '../../types/answer';
 import {
   GetLoginUserRequest,
@@ -41,6 +41,14 @@ export const wordApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
     fetchFn: fetchFn,
+    prepareHeaders: (headers, { getState }) => {
+      const user = (getState() as any).auth.user;
+
+      if (user) {
+        headers.set('Authorization', 'Bearer ' + user.access_token);
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     getIndices: builder.query<Index[], GetIndicesRequest>({
@@ -69,7 +77,7 @@ export const wordApi = createApi({
         url: 'answer',
         params,
       }),
-      transformResponse: (res: GetANswersResponse) => res.answer,
+      transformResponse: (res: GetAnswersResponse) => res.answers,
     }),
     addAnswer: builder.mutation<NewAnswerResponse, NewAnswerRequest>({
       query: (body) => ({

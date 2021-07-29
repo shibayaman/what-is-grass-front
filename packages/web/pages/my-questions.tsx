@@ -79,7 +79,7 @@ const MyQuestionsPage: React.FC = () => {
         </label>
         {questions &&
           questions.map((question) => (
-            <IndexItem key={question.index_id} question={question} />
+            <IndexItem key={question.id} question={question} />
           ))}
       </Layout>
     </PrivatePage>

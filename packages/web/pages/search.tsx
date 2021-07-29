@@ -34,7 +34,7 @@ const SearchPage: React.FC = () => {
           <SearchBar setQuestions={updateQuestion} />
           <div className="my-4 w-6/12 flex flex-col gap-4">
             {questions.map((question) => (
-              <IndexItem key={question.index_id} question={question} />
+              <IndexItem key={question.id} question={question} />
             ))}
           </div>
           {keyword && (

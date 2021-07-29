@@ -63,7 +63,11 @@ const RegisterPage: React.FC = () => {
   }) => {
     console.log(languages);
     try {
-      const user = await createAccount({ username, email, password }).unwrap();
+      const { user } = await createAccount({
+        username,
+        email,
+        password,
+      }).unwrap();
       dispatch(loggedIn(user));
     } catch {
       //

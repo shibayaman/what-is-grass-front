@@ -72,7 +72,7 @@ const AnswersPage: React.FC = () => {
             {data &&
               data.map((answer, index) => (
                 <AnswerItem
-                  key={answer.answer_id}
+                  key={answer.id}
                   answer={answer}
                   featured={index === 0}
                 />

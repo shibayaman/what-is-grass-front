@@ -1,5 +1,5 @@
 export type Answer = {
-  answer_id: number;
+  id: number;
   user_id: number;
   informative_count: number;
   index_id: number;
@@ -20,7 +20,7 @@ export type NewAnswerRequest = {
 export type NewAnswerResponse = Answer;
 
 export type GetAnswersRequest = Pick<Answer, 'index_id'>;
-export type GetANswersResponse = { answer: Answer[] };
+export type GetAnswersResponse = { answers: Answer[] };
 
 export type Example = {
   example_id: number;
