@@ -29,7 +29,7 @@ export const getAnswer: Resolver = (_, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({
-      answer: [
+      answers: [
         {
           answer_id: 1,
           user_id: 1001,
