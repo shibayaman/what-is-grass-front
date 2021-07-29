@@ -63,7 +63,7 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
       <header className="bg-green-500 px-2 py-4 flex justify-between">
         <Link href="/">
           <a className="flex-shrink-0">
-            <img src="./logo.png" className="w-52" />
+            <img src="/logo.png" className="w-52" />
           </a>
         </Link>
         <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-1">
