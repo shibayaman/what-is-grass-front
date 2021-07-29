@@ -1,8 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loggedIn, useDispatch, useLoginMutation } from '@what-is-grass/shared';
+import Link from 'next/link';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import Button from '../components/Button';
+import LabeledFormElement from '../components/LabeldFormElement';
+import TextInput from '../components/TextInput';
 
 type FormValue = {
   email: string;
@@ -35,19 +39,38 @@ const Login: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="L-box">
-        <div className="L-Input">
-          <div className="L-Ew">
-            <p>E-mail</p>
-            <input type="text" name="email" ref={register} />
-            {errors.email?.message}
-          </div>
-          <div className="L-Pw">
-            <p>パスワード</p>
-            <input type="password" name="password" ref={register} />
-            {errors.password?.message}
-          </div>
-          <input type="submit" value="ログイン" disabled={isLoading} />
+      <div className="flex-initial space-y-8 p-4 shadow-lg flex-col rounded border border-gray-400">
+        <LabeledFormElement
+          label="メールアドレス"
+          error={errors.email?.message}
+        >
+          <TextInput
+            name="email"
+            ref={register}
+            isError={errors.email !== void 0}
+          />
+        </LabeledFormElement>
+        <LabeledFormElement
+          label="パススワード"
+          error={errors.password?.message}
+        >
+          <TextInput
+            name="password"
+            ref={register}
+            type="password"
+            isError={errors.password !== void 0}
+          />
+        </LabeledFormElement>
+        <div>
+          <Button variant="primary" type="submit" disabled={isLoading}>
+            ログイン
+          </Button>
+          <span className="ml-4">
+            新規登録は
+            <Link href="/register">
+              <a className="text-green-600">こちら</a>
+            </Link>
+          </span>
         </div>
       </div>
       {isLoginError && 'ログインに失敗しました。'}
