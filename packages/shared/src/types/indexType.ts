@@ -1,5 +1,5 @@
 export type Index = {
-  index_id: number;
+  id: number;
   index: string;
   questioner: string;
   frequently_used_count: number;
