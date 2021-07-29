@@ -39,7 +39,7 @@ const Login: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex-initial space-y-8 p-4 shadow-lg flex-col rounded border border-gray-400">
+      <div className="flex-initial bg-white space-y-8 p-4 shadow-xl flex-col rounded border border-gray-400">
         <LabeledFormElement
           label="メールアドレス"
           error={errors.email?.message}
