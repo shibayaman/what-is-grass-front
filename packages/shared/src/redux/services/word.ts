@@ -41,6 +41,14 @@ export const wordApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
     fetchFn: fetchFn,
+    prepareHeaders: (headers, { getState }) => {
+      const user = (getState() as any).auth.user;
+
+      if (user) {
+        headers.set('Authorization', 'Bearer ' + user.access_token);
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     getIndices: builder.query<Index[], GetIndicesRequest>({
