@@ -97,3 +97,43 @@ export const getUserQuestions: Resolver = (_, res, ctx) => {
     })
   );
 };
+
+export const newFavoriteIndex: Resolver = (_, res, ctx) => {
+  return res(
+    ctx.status(201),
+    ctx.json({
+      index: {
+        index_id: 101,
+        index: '大阪どうですか',
+        questioner: '001',
+        frequently_used_count: 10,
+        answer_count: 1,
+        best_answer: 'いいところですよ',
+        category_tags: [{ id: 1, cateogry_tag_name: 'slang' }],
+        date: '2021-06-21',
+      },
+    })
+  );
+};
+
+export const deleteFavoriteIndex: Resolver = (_, res, ctx) => {
+  return res(ctx.status(204));
+};
+
+export const getFavoriteIndices: Resolver = (_, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      indices: {
+        index_id: 101,
+        index: '大阪どうですか',
+        questioner: '001',
+        frequently_used_count: 10,
+        answer_count: 1,
+        best_answer: 'いいところですよ',
+        category_tags: [{ id: 1, cateogry_tag_name: 'slang' }],
+        date: '2021-06-21',
+      },
+    })
+  );
+};
