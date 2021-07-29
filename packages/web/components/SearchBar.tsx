@@ -10,6 +10,16 @@ import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { shallowEqual } from 'react-redux';
 import * as yup from 'yup';
+import Button from '../components/Button';
+import SelectBox from '../components/SelectBox';
+import TextInput from '../components/TextInput';
+
+//APIができたら消す
+const languages = [
+  { id: 1, language: '日本語' },
+  { id: 2, language: 'English' },
+  { id: 3, language: '中文' },
+];
 
 type Props = {
   setQuestions: (questions: Index[]) => void;
@@ -72,40 +82,36 @@ const SearchBar: React.FC<Props> = (props) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="search-box">
-        <div className="search-input">
-          <input
-            name="keyword"
-            ref={register}
-            placeholder="なんかを聞きたいの？"
-            aria-label="なんかを聞きたいの？"
-          />
-          <input type="submit" value="検索" disabled={isLoading} />
-        </div>
-      </div>
-      <div>
-        <select name="languageId" ref={register} className="search-lauguage">
-          <option value="1">日本語</option>
-          <option value="2">英語</option>
-        </select>
-      </div>
-      <div>
-        <select name="sortId" ref={register} className="sort">
-          <option value="1">日付</option>
-          <option value="2">役立Count</option>
-          <option value="3">回答者数</option>
-        </select>
-      </div>
-      <div>
-        <select
-          name="includeNoAnswer"
+      <div className="flex space-x-2">
+        <SelectBox name="languageId" ref={register}>
+          {languages.map((language) => (
+            <option key={language.id} value={language.id}>
+              {language.language}
+            </option>
+          ))}
+        </SelectBox>
+        <TextInput
+          type="text"
+          width="lg"
+          name="keyword"
           ref={register}
-          className="include_no_answer"
-        >
-          <option value="1">全て</option>
-          <option value="2">回答あり</option>
-          <option value="3">回答なし</option>
-        </select>
+          placeholder="言葉を検索"
+        />
+        <Button variant="primary" type="submit" disabled={isLoading}>
+          検索
+        </Button>
+      </div>
+      <div className="flex space-x-2 mt-2">
+        <SelectBox name="sortId" ref={register}>
+          <option value="1">新しい順</option>
+          <option value="2">役に立った順</option>
+          <option value="3">回答数の多い順</option>
+        </SelectBox>
+        <SelectBox name="includeNoAnswer" ref={register}>
+          <option value="1">全ての言葉</option>
+          <option value="2">回答のある言葉</option>
+          <option value="3">回答のない言葉</option>
+        </SelectBox>
       </div>
     </form>
   );
