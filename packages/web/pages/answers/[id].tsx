@@ -65,7 +65,7 @@ const AnswersPage: React.FC = () => {
   return (
     <Layout>
       {makeNewAnswerButton()}
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-6">
         <div className="grid grid-cols-5 gap-6 w-9/12">
           {isLoading ? 'ロード中...' : null}
           <div className="flex flex-col gap-4 col-span-3">
