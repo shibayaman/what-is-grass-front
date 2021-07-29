@@ -1,4 +1,5 @@
 import { Index, useSelector } from '@what-is-grass/shared';
+import classNames from 'classnames';
 import Link from 'next/link';
 import { useState } from 'react';
 import IndexItem from '../components/IndexItem';
@@ -24,6 +25,8 @@ const SearchPage: React.FC = () => {
     return url;
   };
 
+  const isQuestionsEmpty = questions.length === 0;
+
   return (
     <Layout title="Search | What Is Grass">
       <div className="flex justify-center">
@@ -34,22 +37,27 @@ const SearchPage: React.FC = () => {
               <IndexItem key={question.index_id} question={question} />
             ))}
           </div>
-          {user ? (
-            <div>
-              言葉が見つかりませんか？{' '}
-              <Link href={getNewQuestionUrl()}>
-                <a className="text-green-600">こちら</a>
-              </Link>
-              から{keyword && `「${keyword}」について`}新しく質問しましょう
-            </div>
-          ) : (
-            <div>
-              言葉が見つかりませんか？{' '}
-              <Link href="/">
-                <a className="text-green-600">ログイン</a>
-              </Link>
-              して
-              {keyword && `${keyword}について`}新しく質問しましょう
+          {keyword && (
+            <div className={classNames({ 'text-2xl': isQuestionsEmpty })}>
+              {isQuestionsEmpty
+                ? '言葉が見つかりませんでした。'
+                : '言葉が見つかりませんか？'}{' '}
+              {user ? (
+                <>
+                  <Link href={getNewQuestionUrl()}>
+                    <a className="text-green-600">こちら</a>
+                  </Link>
+                  から
+                </>
+              ) : (
+                <>
+                  <Link href={getNewQuestionUrl()}>
+                    <a className="text-green-600">ログイン</a>
+                  </Link>
+                  して
+                </>
+              )}
+              {keyword && `「${keyword}」について`}新しく質問しましょう
             </div>
           )}
         </div>
