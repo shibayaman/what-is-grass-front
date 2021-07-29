@@ -21,12 +21,13 @@ const Login: React.FC = () => {
     resolver: yupResolver(loginFormSchema),
   });
 
-  const onSubmit: SubmitHandler<FormValue> = async ({ email, password }) => {
+  const onSubmit: SubmitHandler<FormValue> = async ({
+    email: emailInput,
+    password,
+  }) => {
     try {
-      const user = await login({ email, password }).unwrap();
-      dispatch(
-        loggedIn({ id: user.id, username: user.username, email: user.email })
-      );
+      const { user } = await login({ email: emailInput, password }).unwrap();
+      dispatch(loggedIn(user));
     } catch (err) {
       //
     }

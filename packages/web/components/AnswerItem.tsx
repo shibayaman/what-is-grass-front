@@ -9,7 +9,7 @@ const AnswerItem: React.FC<Props> = ({ answer }) => {
   return (
     <div>
       <h2>
-        回答する見出しのid{answer.index_id} {answer.answer_id}
+        回答する見出しのid{answer.index_id} {answer.id}
       </h2>
       <p>
         回答内容：{answer.definition}

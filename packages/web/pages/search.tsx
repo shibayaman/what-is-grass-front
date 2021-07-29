@@ -30,7 +30,7 @@ const SearchPage: React.FC = () => {
       <hr />
       <SearchBar setQuestions={updateQuestion} />
       {questions.map((question) => (
-        <IndexItem key={question.index_id} question={question} />
+        <IndexItem key={question.id} question={question} />
       ))}
       {user ? (
         <div>

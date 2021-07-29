@@ -7,15 +7,15 @@ import {
 import { useEffect, useRef } from 'react';
 
 const WithUser: React.FC = ({ children }) => {
-  const { data: user, isLoading } = useGetLoginUserQuery();
+  const { data, isLoading } = useGetLoginUserQuery();
   const previousLoaingState = useRef(isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user) {
-      dispatch(loggedIn(user));
+    if (data) {
+      dispatch(loggedIn(data.user));
     }
-  }, [user, dispatch]);
+  }, [data, dispatch]);
 
   useEffect(() => {
     if (previousLoaingState.current && !isLoading) {

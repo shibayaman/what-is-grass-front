@@ -8,7 +8,7 @@ type Props = {
 
 const IndexItem: React.FC<Props> = ({ question }) => {
   return (
-    <Link href={`/answers/${question.index_id}`}>
+    <Link href={`/answers/${question.id}`}>
       <div
         style={{ border: '1px solid black', cursor: 'pointer', margin: '1rem' }}
       >
