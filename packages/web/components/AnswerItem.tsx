@@ -15,6 +15,7 @@ const AnswerItem: FC<Props> = ({ answer, featured = false }) => {
   }`;
 
   const [isInformative, setIsInformative] = useState(false);
+  const informativeCount = answer.informative_count + (isInformative ? 1 : 0);
 
   return (
     <div className={cardStyle}>
@@ -33,7 +34,7 @@ const AnswerItem: FC<Props> = ({ answer, featured = false }) => {
         </>
       )}
       <span className="block mt-8">
-        {answer.informative_count}人が役に立ったと言っています
+        {informativeCount}人が役に立ったと言っています
       </span>
       <Button
         variant={isInformative ? 'accent' : 'accent-outline'}
