@@ -107,7 +107,7 @@ const SearchBar: React.FC<Props> = (props) => {
           <option value="2">役に立った順</option>
           <option value="3">回答数の多い順</option>
         </SelectBox>
-        <SelectBox name="includeNoAnswer" ref={register}>
+        <SelectBox name="includeNoAnswerId" ref={register}>
           <option value="1">全ての言葉</option>
           <option value="2">回答のある言葉</option>
           <option value="3">回答のない言葉</option>
