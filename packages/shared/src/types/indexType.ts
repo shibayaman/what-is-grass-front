@@ -25,3 +25,14 @@ export type GetIndicesResponse = {
 
 export type GetUserIndicesRequest = Partial<Omit<GetIndicesRequest, 'keyword'>>;
 export type GetUserIndicesResponse = GetIndicesResponse;
+
+export type GetFavoriteIndicesRequest = Partial<
+  Omit<GetIndicesRequest, 'keyword' | 'include_no_answer'>
+>;
+export type GetFavoriteIndicesResponse = GetIndicesResponse;
+
+export type NewFavoriteIndicesRequest = { index_id: Index['id'] };
+export type NewFavoriteIndicesResponse = { index: Index };
+
+export type DeleteFavoriteIndicesRequest = NewFavoriteIndicesRequest;
+export type DeleteFavoriteIndicesResponse = void;

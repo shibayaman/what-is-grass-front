@@ -1,7 +1,11 @@
-import { useLazyGetAnswersQuery, useSelector } from '@what-is-grass/shared';
+import {
+  useAddFavoriteIndexMutation,
+  useLazyGetAnswersQuery,
+  useSelector,
+} from '@what-is-grass/shared';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AnswerItem from '../../components/AnswerItem';
 import Button from '../../components/Button';
 import Layout from '../../components/Layout';
@@ -9,6 +13,8 @@ import Layout from '../../components/Layout';
 const AnswersPage: React.FC = () => {
   const [triggerGetAnswersQuery, { data, isLoading }] =
     useLazyGetAnswersQuery();
+  const [addToFavorite] = useAddFavoriteIndexMutation();
+  const [favorited, setFavorited] = useState(false);
   const user = useSelector((state) => state.auth.user);
 
   const { query, push: routerPush } = useRouter();
@@ -22,6 +28,11 @@ const AnswersPage: React.FC = () => {
 
   const handleNewAnswerClick = () => {
     routerPush(`/new-answer/${indexId}`);
+  };
+
+  const handleFavoriteClick = () => {
+    addToFavorite({ index_id: +indexId });
+    setFavorited(true);
   };
 
   const makeNewAnswerButton = () => {
@@ -41,11 +52,9 @@ const AnswersPage: React.FC = () => {
               この見出しに回答する
             </Button>
             <Button
-              variant="accent-outline"
+              variant={favorited ? 'accent' : 'accent-outline'}
               type="button"
-              onClick={() => {
-                //
-              }}
+              onClick={handleFavoriteClick}
             >
               お気に入りに追加
             </Button>
