@@ -18,7 +18,7 @@ type FormValues = {
   example: { sentence: string }[];
   origin: string;
   note: string;
-  category: number;
+  categoryId: number;
 };
 
 const newAnswerFormSchema = yup.object({
@@ -26,7 +26,7 @@ const newAnswerFormSchema = yup.object({
   example: yup.array(yup.object({ sentence: yup.string() })),
   origin: yup.string(),
   note: yup.string(),
-  category: yup.number().nullable().required('選んでね'),
+  categoryId: yup.number().nullable().required('選んでね'),
 });
 
 const NewAnswerPage: React.FC = () => {
@@ -64,12 +64,13 @@ const NewAnswerPage: React.FC = () => {
   const disableAppend =
     watch('example').filter((e) => e.sentence === '').length !== 0;
 
-  const selectedCategory = +watch('category');
+  const selectedCategory = +watch('categoryId');
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = ({ categoryId, ...data }) => {
     const example = data.example.filter((e) => e.sentence !== '');
     const newAnswer = {
       index_id: +id,
+      category_tag_id: categoryId,
       ...data,
       example: example.map((e) => e.sentence),
     };
@@ -157,14 +158,14 @@ const NewAnswerPage: React.FC = () => {
             </LabeledFormElement>
             <LabeledFormElement
               label="この言葉が一番当てはまる部類"
-              error={errors.category?.message}
+              error={errors.categoryId?.message}
             >
               <div className="flex flex-wrap gap-x-2 gap-y-2">
                 {categories.map((category) => (
                   <SelectableButton
                     key={category.id}
                     type="radio"
-                    name="category"
+                    name="categoryId"
                     ref={register}
                     defaultValue={category.id}
                     label={category.category_tag_name}
