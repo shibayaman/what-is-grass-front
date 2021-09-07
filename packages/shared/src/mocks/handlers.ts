@@ -6,6 +6,7 @@ import {
   newQuestion,
   getFavoriteIndices,
   newFavoriteIndex,
+  getIndex,
   deleteFavoriteIndex,
 } from './resolvers/question';
 import {
@@ -22,6 +23,7 @@ export const handlers = [
   rest.get('/question', getQuestions),
   rest.get('/user/question-list', getUserQuestions),
   rest.get('/favorite-question', getFavoriteIndices),
+  rest.get('/spesific-question', getIndex),
   rest.get('/answer', getAnswer),
   rest.get('/whoami', getLoginUser),
   rest.post('/question', newQuestion),

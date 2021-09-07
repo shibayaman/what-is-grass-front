@@ -197,3 +197,23 @@ export const getFavoriteIndices: Resolver = (_, res, ctx) => {
     })
   );
 };
+
+export const getIndex: Resolver = (_, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      indices: [
+        {
+          index_id: 100,
+          index: '草',
+          questioner: '1',
+          frequently_used_count: 1,
+          answer_count: 3,
+          best_answer: 'おもしろぃ',
+          category_tags: [{ id: 1, cateogry_tag_name: 'slang' }],
+          date: '2021-06-21',
+        },
+      ],
+    })
+  );
+};
