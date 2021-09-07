@@ -13,6 +13,8 @@ export {
   useLazyGetIndicesQuery,
   useGetUserIndicesQuery,
   useGetFavoriteIndicesQuery,
+  useGetIndexQuery,
+  useLazyGetIndexQuery,
   useAddFavoriteIndexMutation,
   useRemoveFavoriteIndexMutation,
   useAddIndexMutation,

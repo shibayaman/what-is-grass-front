@@ -37,6 +37,9 @@ export type GetFavoriteIndicesRequest = Partial<
 >;
 export type GetFavoriteIndicesResponse = GetIndicesResponse;
 
+export type GetIndexRequest = { index_id: Index['id'] };
+export type GetIndexResponse = { index: Index };
+
 export type NewFavoriteIndicesRequest = { index_id: Index['id'] };
 export type NewFavoriteIndicesResponse = { index: Index };
 
