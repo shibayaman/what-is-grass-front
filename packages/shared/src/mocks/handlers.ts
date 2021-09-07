@@ -1,13 +1,13 @@
 import { rest } from 'msw';
 import { getAnswer, newAnswer } from './resolvers/answer';
 import {
+  deleteFavoriteIndex,
+  getFavoriteIndices,
+  getIndex,
   getQuestions,
   getUserQuestions,
-  newQuestion,
-  getFavoriteIndices,
   newFavoriteIndex,
-  getIndex,
-  deleteFavoriteIndex,
+  newQuestion,
 } from './resolvers/question';
 import {
   editUser,
