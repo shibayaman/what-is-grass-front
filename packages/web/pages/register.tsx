@@ -70,6 +70,9 @@ const RegisterPage: React.FC = () => {
         username,
         email,
         password,
+        first_languages: [],
+        second_languages: [],
+        community_tags: [],
       }).unwrap();
       dispatch(loggedIn(user));
     } catch {
