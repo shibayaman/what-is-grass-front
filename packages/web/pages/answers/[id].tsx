@@ -1,5 +1,6 @@
 import {
   useAddFavoriteIndexMutation,
+  useLazyGetIndexQuery,
   useLazyGetAnswersQuery,
   useSelector,
 } from '@what-is-grass/shared';
@@ -9,10 +10,14 @@ import { useEffect, useState } from 'react';
 import AnswerItem from '../../components/AnswerItem';
 import Button from '../../components/Button';
 import Layout from '../../components/Layout';
+import Tag from '../../components/Tag';
 
 const AnswersPage: React.FC = () => {
-  const [triggerGetAnswersQuery, { data, isLoading }] =
-    useLazyGetAnswersQuery();
+  const [
+    triggerGetAnswersQuery,
+    { data: answers, isLoading: isAnswerLoading },
+  ] = useLazyGetAnswersQuery();
+  const [triggerGetIndexQuery, { data: index }] = useLazyGetIndexQuery();
   const [addToFavorite] = useAddFavoriteIndexMutation();
   const [favorited, setFavorited] = useState(false);
   const user = useSelector((state) => state.auth.user);
@@ -23,8 +28,9 @@ const AnswersPage: React.FC = () => {
   useEffect(() => {
     if (indexId) {
       triggerGetAnswersQuery({ index_id: +indexId });
+      triggerGetIndexQuery({ index_id: +indexId });
     }
-  }, [indexId, triggerGetAnswersQuery]);
+  }, [indexId, triggerGetAnswersQuery, triggerGetIndexQuery]);
 
   const handleNewAnswerClick = () => {
     routerPush(`/new-answer/${indexId}`);
@@ -41,7 +47,7 @@ const AnswersPage: React.FC = () => {
     }
 
     return (
-      <div className="m-4 flex justify-end">
+      <div className="mb-4 flex justify-end">
         {user ? (
           <div className="flex space-x-2">
             <Button
@@ -73,31 +79,43 @@ const AnswersPage: React.FC = () => {
 
   return (
     <Layout>
-      {makeNewAnswerButton()}
-      <div className="flex justify-center mb-6">
-        <div className="grid grid-cols-5 gap-6 w-9/12">
-          {isLoading ? 'ロード中...' : null}
-          <div className="flex flex-col gap-4 col-span-3">
-            {data &&
-              data.map((answer, index) => (
-                <AnswerItem
-                  key={answer.id}
-                  answer={answer}
-                  featured={index === 0}
-                />
-              ))}
+      <div className="m-4">
+        {index && (
+          <div className="mb-2 ml-16">
+            <h1 className="mb-2 text-3xl">{index.index}</h1>
+            <div className="mb-2 flex space-x-2">
+              {index.category_tags.map(({ id, category_tag_name }) => {
+                return <Tag key={id} tagName={category_tag_name} />;
+              })}
+            </div>
           </div>
-          <div className="flex flex-col gap-4 col-span-2 rounded py-4 px-6 border border-gray-300">
-            <span>例文</span>
-            {[
-              '私は私の前で泣かないでください',
-              '私は私の前で泣かないでください',
-              '私は私の前で泣かないでください',
-              '私は私の前で泣かないでください',
-              '私は私の前で泣かないでください',
-            ].map((e, index) => (
-              <p key={index}>{e}</p>
-            ))}
+        )}
+        {makeNewAnswerButton()}
+        <div className="flex justify-center mb-6">
+          <div className="grid grid-cols-5 gap-6 w-9/12">
+            {isAnswerLoading ? 'ロード中...' : null}
+            <div className="flex flex-col gap-4 col-span-3">
+              {answers &&
+                answers.map((answer, index) => (
+                  <AnswerItem
+                    key={answer.id}
+                    answer={answer}
+                    featured={index === 0}
+                  />
+                ))}
+            </div>
+            <div className="flex flex-col gap-4 col-span-2 rounded py-4 px-6 border border-gray-300">
+              <span>例文</span>
+              {[
+                '私は私の前で泣かないでください',
+                '私は私の前で泣かないでください',
+                '私は私の前で泣かないでください',
+                '私は私の前で泣かないでください',
+                '私は私の前で泣かないでください',
+              ].map((e, index) => (
+                <p key={index}>{e}</p>
+              ))}
+            </div>
           </div>
         </div>
       </div>
