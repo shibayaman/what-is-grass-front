@@ -33,10 +33,14 @@ export type LogoutResponse = void;
 export type GetLoginUserRequest = void;
 export type GetLoginUserResponse = LoginResponse;
 
-export type RegisterRequest = Omit<
-  User,
-  'id' | 'access_token' | 'answer_filter'
-> & { password: string };
+export type RegisterRequest = {
+  username: User['username'];
+  email: User['email'];
+  first_languages: Language['id'][];
+  second_languages: Language['id'][];
+  community_tags: CommunityTag['id'][];
+  password: string;
+};
 export type RegisterResponse = LoginResponse;
 
 export type EditUserRequest = Partial<Omit<User, 'id' | 'access_token'>>;
