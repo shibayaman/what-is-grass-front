@@ -23,6 +23,8 @@ import {
   GetFavoriteIndicesResponse,
   GetIndicesRequest,
   GetIndicesResponse,
+  GetIndexRequest,
+  GetIndexResponse,
   GetUserIndicesRequest,
   GetUserIndicesResponse,
   Index,
@@ -77,6 +79,13 @@ export const wordApi = createApi({
         params,
       }),
       transformResponse: (res: GetFavoriteIndicesResponse) => res.indices,
+    }),
+    getIndex: builder.query<Index, GetIndexRequest>({
+      query: (params) => ({
+        url: '/specific-question',
+        params,
+      }),
+      transformResponse: (res: GetIndexResponse) => res.index,
     }),
     addIndex: builder.mutation<NewIndexResponse, NewIndexRequest>({
       query: (body) => ({
@@ -149,6 +158,8 @@ export const useLazyGetIndicesQuery = wordApi.endpoints.getIndices.useLazyQuery;
 export const useGetUserIndicesQuery = wordApi.endpoints.getUserIndices.useQuery;
 export const useGetFavoriteIndicesQuery =
   wordApi.endpoints.getFavoriteIndices.useQuery;
+export const useGetIndexQuery = wordApi.endpoints.getIndex.useQuery;
+export const useLazyGetIndexQuery = wordApi.endpoints.getIndex.useLazyQuery;
 export const useAddIndexMutation = wordApi.endpoints.addIndex.useMutation;
 export const useAddFavoriteIndexMutation =
   wordApi.endpoints.addFavoriteIndex.useMutation;

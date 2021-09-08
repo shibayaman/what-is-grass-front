@@ -1,12 +1,13 @@
 import { rest } from 'msw';
 import { getAnswer, newAnswer } from './resolvers/answer';
 import {
+  deleteFavoriteIndex,
+  getFavoriteIndices,
+  getIndex,
   getQuestions,
   getUserQuestions,
-  newQuestion,
-  getFavoriteIndices,
   newFavoriteIndex,
-  deleteFavoriteIndex,
+  newQuestion,
 } from './resolvers/question';
 import {
   editUser,
@@ -22,6 +23,7 @@ export const handlers = [
   rest.get('/question', getQuestions),
   rest.get('/user/question-list', getUserQuestions),
   rest.get('/favorite-question', getFavoriteIndices),
+  rest.get('/specific-question', getIndex),
   rest.get('/answer', getAnswer),
   rest.get('/whoami', getLoginUser),
   rest.post('/question', newQuestion),
