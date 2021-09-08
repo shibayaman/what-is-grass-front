@@ -167,7 +167,7 @@ export const newFavoriteIndex: Resolver = (_, res, ctx) => {
         frequently_used_count: 10,
         answer_count: 1,
         best_answer: 'いいところですよ',
-        category_tags: [{ id: 1, cateogry_tag_name: 'slang' }],
+        category_tags: [{ id: 1, category_tag_name: 'slang' }],
         date: '2021-06-21',
       },
     })
@@ -190,7 +190,7 @@ export const getFavoriteIndices: Resolver = (_, res, ctx) => {
           frequently_used_count: 10,
           answer_count: 1,
           best_answer: 'いいところですよ',
-          category_tags: [{ id: 1, cateogry_tag_name: 'slang' }],
+          category_tags: [{ id: 1, category_tag_name: 'slang' }],
           date: '2021-06-21',
         },
       ],
@@ -209,7 +209,7 @@ export const getIndex: Resolver = (_, res, ctx) => {
         frequently_used_count: 1,
         answer_count: 3,
         best_answer: 'おもしろぃ',
-        category_tags: [{ id: 1, cateogry_tag_name: 'slang' }],
+        category_tags: [{ id: 1, category_tag_name: 'slang' }],
         date: '2021-06-21',
       },
     })
