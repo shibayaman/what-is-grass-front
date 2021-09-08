@@ -12,14 +12,12 @@ import {
 import {
   editUser,
   getLoginUser,
-  getUser,
   login,
   logout,
   newUser,
 } from './resolvers/user';
 
 export const handlers = [
-  rest.get('/user', getUser),
   rest.get('/question', getQuestions),
   rest.get('/user/question-list', getUserQuestions),
   rest.get('/favorite-question', getFavoriteIndices),

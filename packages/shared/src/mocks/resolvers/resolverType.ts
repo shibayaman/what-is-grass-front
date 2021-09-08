@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   DefaultRequestBody,
   RequestParams,
@@ -6,7 +7,14 @@ import {
   RestRequest,
 } from 'msw';
 
-export type Resolver = ResponseResolver<
-  RestRequest<DefaultRequestBody, RequestParams>,
-  RestContext
+export type Resolver<
+  RequestBody = DefaultRequestBody,
+  ResponseBody = any,
+  Params = RequestParams
+> = ResponseResolver<
+  RestRequest<RequestBody, Params>,
+  RestContext,
+  ResponseBody
 >;
+
+export type EmptyContent = Record<string, never>;
