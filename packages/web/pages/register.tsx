@@ -20,7 +20,8 @@ type FormValue = {
   email: string;
   password: string;
   repeatPassword: string;
-  languages: NestedValue<number[]>;
+  first_languages: NestedValue<number[]>;
+  second_languages: NestedValue<number[]>;
   communityTags: NestedValue<number[]>;
 };
 
@@ -32,7 +33,11 @@ const newUserFormSchema = yup.object({
     .string()
     .required('こちらは必須項目です')
     .oneOf([yup.ref('password')]),
-  languages: yup
+  first_languages: yup
+    .array(yup.number())
+    .min(1, '一つは選んでね')
+    .transform((value) => value.filter(Boolean)),
+  second_languages: yup
     .array(yup.number())
     .min(1, '一つは選んでね')
     .transform((value) => value.filter(Boolean)),
@@ -54,7 +59,11 @@ const RegisterPage: React.FC = () => {
     formState: { isSubmitted },
     handleSubmit,
   } = useForm<FormValue>({
-    defaultValues: { languages: [], communityTags: [] },
+    defaultValues: {
+      first_languages: [],
+      second_languages: [],
+      communityTags: [],
+    },
     resolver: yupResolver(newUserFormSchema),
   });
 
@@ -62,7 +71,9 @@ const RegisterPage: React.FC = () => {
     username,
     email,
     password,
-    languages,
+    first_languages,
+    second_languages,
+    communityTags,
   }) => {
     console.log(languages);
     try {
@@ -70,9 +81,9 @@ const RegisterPage: React.FC = () => {
         username,
         email,
         password,
-        first_languages: [],
-        second_languages: [],
-        community_tags: [],
+        first_languages: first_languages,
+        second_languages: second_languages,
+        community_tags: communityTags,
       }).unwrap();
       dispatch(loggedIn(user));
     } catch {
@@ -80,7 +91,11 @@ const RegisterPage: React.FC = () => {
     }
   };
 
-  const selectedLanguages = watch('languages')
+  const selectedFirstLanguages = watch('first_languages')
+    .filter(Boolean)
+    .map((id) => +id);
+
+  const selectedSecondLanguages = watch('second_languages')
     .filter(Boolean)
     .map((id) => +id);
 
@@ -143,21 +158,48 @@ const RegisterPage: React.FC = () => {
             </LabeledFormElement>
             <LabeledFormElement
               label="話せる言語 (複数可)"
-              error={errors.languages?.message}
+              error={errors.first_languages?.message}
             >
               <div className="flex flex-wrap gap-x-2 gap-y-2">
                 {languages.map((language, index) => (
                   <SelectableButton
                     key={language.id}
                     type="checkbox"
-                    name={`languages.${index}`}
+                    name={`first_languages.${index}`}
                     ref={register}
                     defaultValue={language.id}
                     label={language.language}
-                    checked={selectedLanguages.includes(language.id) || false}
+                    checked={
+                      selectedFirstLanguages.includes(language.id) || false
+                    }
                     onChange={() => {
                       if (isSubmitted) {
-                        trigger('languages');
+                        trigger('first_languages');
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            </LabeledFormElement>
+            <LabeledFormElement
+              label="学習中の言語 (複数可)"
+              error={errors.second_languages?.message}
+            >
+              <div className="flex flex-wrap gap-x-2 gap-y-2">
+                {languages.map((language, index) => (
+                  <SelectableButton
+                    key={language.id}
+                    type="checkbox"
+                    name={`second_languages.${index}`}
+                    ref={register}
+                    defaultValue={language.id}
+                    label={language.language}
+                    checked={
+                      selectedSecondLanguages.includes(language.id) || false
+                    }
+                    onChange={() => {
+                      if (isSubmitted) {
+                        trigger('second_languages');
                       }
                     }}
                   />
