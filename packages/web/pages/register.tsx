@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
-  community_tags,
   loggedIn,
   useDispatch,
+  useGetCommunityTagsQuery,
   useGetLanguagesQuery,
   useRegisterMutation,
 } from '@what-is-grass/shared';
@@ -50,6 +50,7 @@ const newUserFormSchema = yup.object({
 const RegisterPage: React.FC = () => {
   const [createAccount, { isLoading }] = useRegisterMutation();
   const { data: languages } = useGetLanguagesQuery();
+  const { data: communityTags } = useGetCommunityTagsQuery();
   const dispatch = useDispatch();
 
   const {
@@ -213,24 +214,25 @@ const RegisterPage: React.FC = () => {
               error={errors.communityTags?.message}
             >
               <div className="flex flex-wrap gap-x-2 gap-y-2">
-                {community_tags.map((community, index) => (
-                  <SelectableButton
-                    key={community.id}
-                    type="checkbox"
-                    name={`communityTags.${index}`}
-                    ref={register}
-                    defaultValue={community.id}
-                    label={community.community_tag_name}
-                    checked={
-                      selectedCommunities.includes(community.id) || false
-                    }
-                    onChange={() => {
-                      if (isSubmitted) {
-                        trigger('communityTags');
+                {communityTags &&
+                  communityTags.map((communityTag, index) => (
+                    <SelectableButton
+                      key={communityTag.id}
+                      type="checkbox"
+                      name={`communityTags.${index}`}
+                      ref={register}
+                      defaultValue={communityTag.id}
+                      label={communityTag.community_tag_name}
+                      checked={
+                        selectedCommunities.includes(communityTag.id) || false
                       }
-                    }}
-                  />
-                ))}
+                      onChange={() => {
+                        if (isSubmitted) {
+                          trigger('communityTags');
+                        }
+                      }}
+                    />
+                  ))}
               </div>
             </LabeledFormElement>
             <Button variant="primary" type="submit" disabled={isLoading}>
