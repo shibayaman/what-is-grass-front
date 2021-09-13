@@ -1,6 +1,6 @@
 export type CommunityTag = {
   id: number;
-  community_tag: string;
+  community_tag_name: string;
 };
 
 export type GetCommunityTagsRequest = void;
