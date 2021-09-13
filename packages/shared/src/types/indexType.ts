@@ -1,4 +1,4 @@
-import { Category } from './categoryTag';
+import { CategoryTag } from './categoryTag';
 
 export type Index = {
   id: number;
@@ -7,7 +7,7 @@ export type Index = {
   frequently_used_count: number;
   answer_count: number;
   language_id: number;
-  category_tags: Category[];
+  category_tags: CategoryTag[];
   best_answer: string;
   date: string;
 };
