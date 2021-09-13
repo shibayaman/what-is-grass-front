@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
+  communityTranslator,
   loggedIn,
   useDispatch,
   useGetCommunityTagsQuery,
@@ -222,7 +223,9 @@ const RegisterPage: React.FC = () => {
                       name={`communityTags.${index}`}
                       ref={register}
                       defaultValue={communityTag.id}
-                      label={communityTag.community_tag_name}
+                      label={communityTranslator(
+                        communityTag.community_tag_name
+                      )}
                       checked={
                         selectedCommunities.includes(communityTag.id) || false
                       }

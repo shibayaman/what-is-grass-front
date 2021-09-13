@@ -1,4 +1,5 @@
 import {
+  categoryTranslator,
   useAddFavoriteIndexMutation,
   useLazyGetIndexQuery,
   useLazyGetAnswersQuery,
@@ -85,7 +86,12 @@ const AnswersPage: React.FC = () => {
             <h1 className="mb-2 text-3xl">{index.index}</h1>
             <div className="mb-2 flex space-x-2">
               {index.category_tags.map(({ id, category_tag_name }) => {
-                return <Tag key={id} tagName={category_tag_name} />;
+                return (
+                  <Tag
+                    key={id}
+                    tagName={categoryTranslator(category_tag_name)}
+                  />
+                );
               })}
             </div>
           </div>

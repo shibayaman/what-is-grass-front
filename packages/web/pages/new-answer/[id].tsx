@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
+  categoryTranslator,
   useAddAnswerMutation,
   useGetCategoryTagsQuery,
 } from '@what-is-grass/shared';
@@ -173,7 +174,7 @@ const NewAnswerPage: React.FC = () => {
                       name="categoryId"
                       ref={register}
                       defaultValue={category.id}
-                      label={category.category_tag_name}
+                      label={categoryTranslator(category.category_tag_name)}
                       checked={selectedCategory === category.id}
                     />
                   ))}
