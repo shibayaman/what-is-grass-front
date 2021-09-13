@@ -1,3 +1,6 @@
+import { CommunityTag } from './communityTag';
+import { Language } from './language';
+
 export type User = {
   id: number;
   username: string;
@@ -7,16 +10,6 @@ export type User = {
   community_tags: CommunityTag[];
   answer_filter: number;
   access_token: string;
-};
-
-export type Language = {
-  id: number;
-  language: string;
-};
-
-export type CommunityTag = {
-  id: number;
-  community_tag: string;
 };
 
 export type LoginRequest = {
