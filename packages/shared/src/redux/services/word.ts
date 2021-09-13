@@ -17,6 +17,16 @@ import {
   RegisterResponse,
 } from '../../types/auth';
 import {
+  CategoryTag,
+  GetCategoryTagsRequest,
+  GetCategoryTagsResponse,
+} from '../../types/categoryTag';
+import {
+  CommunityTag,
+  GetCommunityTagsRequest,
+  GetCommunityTagsResponse,
+} from '../../types/communityTag';
+import {
   DeleteFavoriteIndicesRequest,
   DeleteFavoriteIndicesResponse,
   GetFavoriteIndicesRequest,
@@ -33,6 +43,11 @@ import {
   NewIndexRequest,
   NewIndexResponse,
 } from '../../types/indexType';
+import {
+  GetLanguagesRequest,
+  GetLanguagesResponse,
+  Language,
+} from '../../types/language';
 
 // mswが有効化される前にクエリーが飛んじゃう謎の挙動があったので
 // デフォルトのfetchをPromiseでラップしてみたら期待通りに動いた。
@@ -157,6 +172,24 @@ export const wordApi = createApi({
         body,
       }),
     }),
+    getLanguages: builder.query<Language[], GetLanguagesRequest>({
+      query: () => ({
+        url: 'language',
+      }),
+      transformResponse: (res: GetLanguagesResponse) => res.languages,
+    }),
+    getCommunityTags: builder.query<CommunityTag[], GetCommunityTagsRequest>({
+      query: () => ({
+        url: 'communitytag',
+      }),
+      transformResponse: (res: GetCommunityTagsResponse) => res.community_tags,
+    }),
+    getCategoryTags: builder.query<CategoryTag[], GetCategoryTagsRequest>({
+      query: () => ({
+        url: 'categorytag',
+      }),
+      transformResponse: (res: GetCategoryTagsResponse) => res.category_tags,
+    }),
   }),
 });
 
@@ -180,3 +213,8 @@ export const useGetLoginUserQuery = wordApi.endpoints.getLoginUser.useQuery;
 export const useLoginMutation = wordApi.endpoints.login.useMutation;
 export const useLogoutMutation = wordApi.endpoints.logout.useMutation;
 export const useRegisterMutation = wordApi.endpoints.register.useMutation;
+export const useGetLanguagesQuery = wordApi.endpoints.getLanguages.useQuery;
+export const useGetCommunityTagsQuery =
+  wordApi.endpoints.getCommunityTags.useQuery;
+export const useGetCategoryTagsQuery =
+  wordApi.endpoints.getCategoryTags.useQuery;
