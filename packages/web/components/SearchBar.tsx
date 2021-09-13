@@ -4,6 +4,7 @@ import {
   searchTriggered,
   useDispatch,
   useGetIndicesQuery,
+  useGetLanguagesQuery,
   useSelector,
 } from '@what-is-grass/shared';
 import React, { useEffect } from 'react';
@@ -13,13 +14,6 @@ import * as yup from 'yup';
 import Button from '../components/Button';
 import SelectBox from '../components/SelectBox';
 import TextInput from '../components/TextInput';
-
-//APIができたら消す
-const languages = [
-  { id: 1, language: '日本語' },
-  { id: 2, language: 'English' },
-  { id: 3, language: '中文' },
-];
 
 type Props = {
   setQuestions: (questions: Index[]) => void;
@@ -46,9 +40,13 @@ const SearchBar: React.FC<Props> = (props) => {
     shallowEqual
   );
 
-  const { data, isLoading } = useGetIndicesQuery(latestSearchRequest!, {
-    skip: latestSearchRequest === null,
-  });
+  const { data: indices, isLoading: isIndicesLoading } = useGetIndicesQuery(
+    latestSearchRequest!,
+    {
+      skip: latestSearchRequest === null,
+    }
+  );
+  const { data: languages } = useGetLanguagesQuery();
 
   const { register, handleSubmit } = useForm<FormValue>({
     defaultValues: {
@@ -61,8 +59,8 @@ const SearchBar: React.FC<Props> = (props) => {
   });
 
   useEffect(() => {
-    data && props.setQuestions(data);
-  }, [data]);
+    indices && props.setQuestions(indices);
+  }, [indices]);
 
   const onSubmit: SubmitHandler<FormValue> = ({
     keyword,
@@ -84,11 +82,12 @@ const SearchBar: React.FC<Props> = (props) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex space-x-2">
         <SelectBox name="languageId" ref={register}>
-          {languages.map((language) => (
-            <option key={language.id} value={language.id}>
-              {language.language}
-            </option>
-          ))}
+          {languages &&
+            languages.map((language) => (
+              <option key={language.id} value={language.id}>
+                {language.language}
+              </option>
+            ))}
         </SelectBox>
         <TextInput
           type="text"
@@ -97,7 +96,7 @@ const SearchBar: React.FC<Props> = (props) => {
           ref={register}
           placeholder="言葉を検索"
         />
-        <Button variant="primary" type="submit" disabled={isLoading}>
+        <Button variant="primary" type="submit" disabled={isIndicesLoading}>
           検索
         </Button>
       </div>
