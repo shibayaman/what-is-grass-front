@@ -1,6 +1,11 @@
 import { rest } from 'msw';
 import { getAnswer, newAnswer } from './resolvers/answer';
 import {
+  getCategoryTags,
+  getCommunityTags,
+  getLanguages,
+} from './resolvers/consts';
+import {
   deleteFavoriteIndex,
   getFavoriteIndices,
   getIndex,
@@ -24,6 +29,9 @@ export const handlers = [
   rest.get('/specific-question', getIndex),
   rest.get('/answer', getAnswer),
   rest.get('/whoami', getLoginUser),
+  rest.get('./categorytag', getCategoryTags),
+  rest.get('./communitytag', getCommunityTags),
+  rest.get('/language', getLanguages),
   rest.post('/question', newQuestion),
   rest.post('/favorite-question', newFavoriteIndex),
   rest.post('/answer', newAnswer),
