@@ -41,7 +41,11 @@ const fetchFn: (
   input: RequestInfo,
   init?: RequestInit | undefined
 ) => Promise<Response> = async (input, init) => {
-  return await fetch(input, init);
+  const baseInitOptions = { credentials: 'include' as const };
+  const mergedInitOptions = init
+    ? Object.assign(init, baseInitOptions)
+    : baseInitOptions;
+  return await fetch(input, mergedInitOptions);
 };
 
 export const wordApi = createApi({
@@ -49,12 +53,16 @@ export const wordApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: '/',
     fetchFn: fetchFn,
-    prepareHeaders: (headers, { getState }) => {
-      const user = (getState() as any).auth.user;
+    prepareHeaders: (headers) => {
+      const csrfTokenCookie = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('csrf_access_token'));
 
-      if (user) {
-        headers.set('Authorization', 'Bearer ' + user.access_token);
+      if (csrfTokenCookie) {
+        const csrfToken = csrfTokenCookie.split('=')[1];
+        headers.set('X-CSRF-TOKEN', csrfToken);
       }
+
       return headers;
     },
   }),
