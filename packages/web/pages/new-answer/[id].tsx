@@ -1,5 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { categories, useAddAnswerMutation } from '@what-is-grass/shared';
+import {
+  useAddAnswerMutation,
+  useGetCategoryTagsQuery,
+} from '@what-is-grass/shared';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
@@ -33,6 +36,7 @@ const NewAnswerPage: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
   const [addAnswer, { isLoading }] = useAddAnswerMutation();
+  const { data: categories } = useGetCategoryTagsQuery();
 
   const { register, handleSubmit, control, getValues, watch, errors } =
     useForm<FormValues>({
@@ -161,17 +165,18 @@ const NewAnswerPage: React.FC = () => {
               error={errors.categoryId?.message}
             >
               <div className="flex flex-wrap gap-x-2 gap-y-2">
-                {categories.map((category) => (
-                  <SelectableButton
-                    key={category.id}
-                    type="radio"
-                    name="categoryId"
-                    ref={register}
-                    defaultValue={category.id}
-                    label={category.category_tag_name}
-                    checked={selectedCategory === category.id}
-                  />
-                ))}
+                {categories &&
+                  categories.map((category) => (
+                    <SelectableButton
+                      key={category.id}
+                      type="radio"
+                      name="categoryId"
+                      ref={register}
+                      defaultValue={category.id}
+                      label={category.category_tag_name}
+                      checked={selectedCategory === category.id}
+                    />
+                  ))}
               </div>
             </LabeledFormElement>
             <div className="flex justify-center">
