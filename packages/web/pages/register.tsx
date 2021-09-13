@@ -1,9 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
-  community_tags,
-  languages,
+  communityTranslator,
   loggedIn,
   useDispatch,
+  useGetCommunityTagsQuery,
+  useGetLanguagesQuery,
   useRegisterMutation,
 } from '@what-is-grass/shared';
 import { NestedValue, SubmitHandler, useForm } from 'react-hook-form';
@@ -49,6 +50,8 @@ const newUserFormSchema = yup.object({
 
 const RegisterPage: React.FC = () => {
   const [createAccount, { isLoading }] = useRegisterMutation();
+  const { data: languages } = useGetLanguagesQuery();
+  const { data: communityTags } = useGetCommunityTagsQuery();
   const dispatch = useDispatch();
 
   const {
@@ -75,7 +78,6 @@ const RegisterPage: React.FC = () => {
     second_languages,
     communityTags,
   }) => {
-    console.log(languages);
     try {
       const { user } = await createAccount({
         username,
@@ -161,24 +163,25 @@ const RegisterPage: React.FC = () => {
               error={errors.first_languages?.message}
             >
               <div className="flex flex-wrap gap-x-2 gap-y-2">
-                {languages.map((language, index) => (
-                  <SelectableButton
-                    key={language.id}
-                    type="checkbox"
-                    name={`first_languages.${index}`}
-                    ref={register}
-                    defaultValue={language.id}
-                    label={language.language}
-                    checked={
-                      selectedFirstLanguages.includes(language.id) || false
-                    }
-                    onChange={() => {
-                      if (isSubmitted) {
-                        trigger('first_languages');
+                {languages &&
+                  languages.map((language, index) => (
+                    <SelectableButton
+                      key={language.id}
+                      type="checkbox"
+                      name={`first_languages.${index}`}
+                      ref={register}
+                      defaultValue={language.id}
+                      label={language.language}
+                      checked={
+                        selectedFirstLanguages.includes(language.id) || false
                       }
-                    }}
-                  />
-                ))}
+                      onChange={() => {
+                        if (isSubmitted) {
+                          trigger('first_languages');
+                        }
+                      }}
+                    />
+                  ))}
               </div>
             </LabeledFormElement>
             <LabeledFormElement
@@ -186,24 +189,25 @@ const RegisterPage: React.FC = () => {
               error={errors.second_languages?.message}
             >
               <div className="flex flex-wrap gap-x-2 gap-y-2">
-                {languages.map((language, index) => (
-                  <SelectableButton
-                    key={language.id}
-                    type="checkbox"
-                    name={`second_languages.${index}`}
-                    ref={register}
-                    defaultValue={language.id}
-                    label={language.language}
-                    checked={
-                      selectedSecondLanguages.includes(language.id) || false
-                    }
-                    onChange={() => {
-                      if (isSubmitted) {
-                        trigger('second_languages');
+                {languages &&
+                  languages.map((language, index) => (
+                    <SelectableButton
+                      key={language.id}
+                      type="checkbox"
+                      name={`second_languages.${index}`}
+                      ref={register}
+                      defaultValue={language.id}
+                      label={language.language}
+                      checked={
+                        selectedSecondLanguages.includes(language.id) || false
                       }
-                    }}
-                  />
-                ))}
+                      onChange={() => {
+                        if (isSubmitted) {
+                          trigger('second_languages');
+                        }
+                      }}
+                    />
+                  ))}
               </div>
             </LabeledFormElement>
             <LabeledFormElement
@@ -211,24 +215,27 @@ const RegisterPage: React.FC = () => {
               error={errors.communityTags?.message}
             >
               <div className="flex flex-wrap gap-x-2 gap-y-2">
-                {community_tags.map((community, index) => (
-                  <SelectableButton
-                    key={community.id}
-                    type="checkbox"
-                    name={`communityTags.${index}`}
-                    ref={register}
-                    defaultValue={community.id}
-                    label={community.community_tag_name}
-                    checked={
-                      selectedCommunities.includes(community.id) || false
-                    }
-                    onChange={() => {
-                      if (isSubmitted) {
-                        trigger('communityTags');
+                {communityTags &&
+                  communityTags.map((communityTag, index) => (
+                    <SelectableButton
+                      key={communityTag.id}
+                      type="checkbox"
+                      name={`communityTags.${index}`}
+                      ref={register}
+                      defaultValue={communityTag.id}
+                      label={communityTranslator(
+                        communityTag.community_tag_name
+                      )}
+                      checked={
+                        selectedCommunities.includes(communityTag.id) || false
                       }
-                    }}
-                  />
-                ))}
+                      onChange={() => {
+                        if (isSubmitted) {
+                          trigger('communityTags');
+                        }
+                      }}
+                    />
+                  ))}
               </div>
             </LabeledFormElement>
             <Button variant="primary" type="submit" disabled={isLoading}>

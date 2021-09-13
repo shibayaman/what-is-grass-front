@@ -1,8 +1,8 @@
 import {
   loggedOut,
-  languages,
   searchTriggered,
   useDispatch,
+  useGetLanguagesQuery,
   useLogoutMutation,
   useSelector,
 } from '@what-is-grass/shared';
@@ -32,6 +32,9 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
 
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+
+  const { data: languages } = useGetLanguagesQuery();
+
   const [logout, { isLoading }] = useLogoutMutation();
   const onLogoutHandler = async () => {
     try {
@@ -62,11 +65,12 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
         </Link>
         <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-1">
           <SelectBox name="languageId" ref={register({ valueAsNumber: true })}>
-            {languages.map((language) => (
-              <option key={language.id} value={language.id}>
-                {language.language}
-              </option>
-            ))}
+            {languages &&
+              languages.map((language) => (
+                <option key={language.id} value={language.id}>
+                  {language.language}
+                </option>
+              ))}
           </SelectBox>
           <TextInput
             type="text"

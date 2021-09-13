@@ -1,3 +1,5 @@
+import { CategoryTag } from './categoryTag';
+
 export type Index = {
   id: number;
   index: string;
@@ -5,14 +7,9 @@ export type Index = {
   frequently_used_count: number;
   answer_count: number;
   language_id: number;
-  category_tags: Category[];
+  category_tags: CategoryTag[];
   best_answer: string;
   date: string;
-};
-
-type Category = {
-  id: number;
-  category_tag_name: string;
 };
 
 export type NewIndexResponse = Omit<Index, 'best_answer'>;

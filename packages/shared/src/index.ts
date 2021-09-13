@@ -25,6 +25,9 @@ export {
   useLoginMutation,
   useLogoutMutation,
   useRegisterMutation,
+  useGetLanguagesQuery,
+  useGetCommunityTagsQuery,
+  useGetCategoryTagsQuery,
 } from './redux/services/word';
 export { Index } from './types/indexType';
 export { Answer } from './types/answer';

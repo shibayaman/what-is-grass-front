@@ -1,4 +1,4 @@
-import { Index } from '@what-is-grass/shared';
+import { categoryTranslator, Index } from '@what-is-grass/shared';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import Button from '../components/Button';
@@ -19,7 +19,9 @@ const IndexItem: FC<Props> = ({ question }) => {
         <p className="text-3xl text-green-600 mb-2">{question.index}</p>
         <div className="flex space-x-2">
           {question.category_tags.map(({ id, category_tag_name }) => {
-            return <Tag key={id} tagName={category_tag_name} />;
+            return (
+              <Tag key={id} tagName={categoryTranslator(category_tag_name)} />
+            );
           })}
         </div>
         <p className="text-lg my-2 mx-2">{question.best_answer}</p>
