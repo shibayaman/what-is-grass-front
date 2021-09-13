@@ -177,18 +177,21 @@ export const wordApi = createApi({
         url: 'language',
       }),
       transformResponse: (res: GetLanguagesResponse) => res.languages,
+      keepUnusedDataFor: 60 * 30,
     }),
     getCommunityTags: builder.query<CommunityTag[], GetCommunityTagsRequest>({
       query: () => ({
         url: 'communitytag',
       }),
       transformResponse: (res: GetCommunityTagsResponse) => res.community_tags,
+      keepUnusedDataFor: 60 * 30,
     }),
     getCategoryTags: builder.query<CategoryTag[], GetCategoryTagsRequest>({
       query: () => ({
         url: 'categorytag',
       }),
       transformResponse: (res: GetCategoryTagsResponse) => res.category_tags,
+      keepUnusedDataFor: 60 * 30,
     }),
   }),
 });
