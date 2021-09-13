@@ -41,7 +41,11 @@ const fetchFn: (
   input: RequestInfo,
   init?: RequestInit | undefined
 ) => Promise<Response> = async (input, init) => {
-  return await fetch(input, init);
+  const baseInitOptions = { credentials: 'include' as const };
+  const mergedInitOptions = init
+    ? Object.assign(init, baseInitOptions)
+    : baseInitOptions;
+  return await fetch(input, mergedInitOptions);
 };
 
 export const wordApi = createApi({
