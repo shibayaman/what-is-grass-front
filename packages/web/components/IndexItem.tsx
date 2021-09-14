@@ -15,7 +15,7 @@ const IndexItem: FC<Props> = ({ question }) => {
 
   return (
     <Link href={`/answers/${question.id}`}>
-      <div className="rounded py-4 px-6 border border-gray-300 shadow-md hover:cursor-pointer">
+      <div className="rounded py-4 px-6 border border-gray-300 bg-white shadow-md hover:cursor-pointer">
         <p className="text-3xl text-green-600 mb-2">{question.index}</p>
         <div className="flex space-x-2">
           {question.category_tags.map(({ id, category_tag_name }) => {

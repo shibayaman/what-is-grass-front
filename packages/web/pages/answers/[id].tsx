@@ -110,7 +110,7 @@ const AnswersPage: React.FC = () => {
                   />
                 ))}
             </div>
-            <div className="flex flex-col gap-4 col-span-2 rounded py-4 px-6 border border-gray-300">
+            <div className="flex flex-col gap-4 col-span-2 rounded py-4 px-6 border border-gray-300 bg-white">
               <span>例文</span>
               {[
                 '私は私の前で泣かないでください',

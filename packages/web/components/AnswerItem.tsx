@@ -8,7 +8,7 @@ type Props = {
 };
 
 const AnswerItem: FC<Props> = ({ answer, featured = false }) => {
-  const cardStyle = `rounded py-4 px-6 ${
+  const cardStyle = `rounded py-4 px-6 bg-white ${
     featured
       ? 'shadow-lg border-2 border-orange-400'
       : 'shadow-md border border-gray-300'
