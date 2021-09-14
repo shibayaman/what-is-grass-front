@@ -1,4 +1,5 @@
-import { Resolver } from './resolverType';
+import { GetExamplesRequest, GetExamplesResponse } from '../../types/answer';
+import { EmptyContent, Resolver } from './resolverType';
 
 export const newAnswer: Resolver = (_, res, ctx) => {
   return res(
@@ -79,6 +80,44 @@ export const getAnswer: Resolver = (_, res, ctx) => {
             },
           ],
           date: '2021-06-22T12:00:00.000+09:00',
+        },
+      ],
+    })
+  );
+};
+
+export const getExamples: Resolver<
+  EmptyContent,
+  GetExamplesResponse,
+  GetExamplesRequest
+> = (_, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      examples: [
+        {
+          answer_id: 2,
+          example_sentence: 'We enjoyed our dinner.',
+          id: 1,
+          index_id: 1,
+        },
+        {
+          answer_id: 2,
+          example_sentence: 'We enjoyed our lunch.',
+          id: 2,
+          index_id: 1,
+        },
+        {
+          answer_id: 2,
+          example_sentence: 'We enjoyed our breakfast.',
+          id: 3,
+          index_id: 1,
+        },
+        {
+          answer_id: 2,
+          example_sentence: 'We did not enjoy our meal.',
+          id: 4,
+          index_id: 1,
         },
       ],
     })
