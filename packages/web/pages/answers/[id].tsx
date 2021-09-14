@@ -125,10 +125,14 @@ const AnswersPage: React.FC = () => {
             <Card className="flex flex-col gap-4 col-span-2">
               <span>例文</span>
               {examples &&
-                examples.map((example) => (
-                  <p className="text-lg" key={example.id}>
-                    {example.example_sentence}
-                  </p>
+                (examples.length === 0 ? (
+                  <p>まだ例文は投稿されていません。</p>
+                ) : (
+                  examples.map((example) => (
+                    <p className="text-lg" key={example.id}>
+                      {example.example_sentence}
+                    </p>
+                  ))
                 ))}
             </Card>
           </div>
