@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import AnswerItem from '../../components/AnswerItem';
 import Button from '../../components/Button';
+import Card from '../../components/Card';
 import Layout from '../../components/Layout';
 import Tag from '../../components/Tag';
 
@@ -110,7 +111,7 @@ const AnswersPage: React.FC = () => {
                   />
                 ))}
             </div>
-            <div className="flex flex-col gap-4 col-span-2 rounded py-4 px-6 border border-gray-300 bg-white">
+            <Card className="flex flex-col gap-4 col-span-2">
               <span>例文</span>
               {[
                 '私は私の前で泣かないでください',
@@ -121,7 +122,7 @@ const AnswersPage: React.FC = () => {
               ].map((e, index) => (
                 <p key={index}>{e}</p>
               ))}
-            </div>
+            </Card>
           </div>
         </div>
       </div>

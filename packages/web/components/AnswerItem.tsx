@@ -1,6 +1,7 @@
 import { Answer } from '@what-is-grass/shared';
 import { FC, useState } from 'react';
 import Button from '../components/Button';
+import Card from '../components/Card';
 
 type Props = {
   answer: Answer;
@@ -8,17 +9,11 @@ type Props = {
 };
 
 const AnswerItem: FC<Props> = ({ answer, featured = false }) => {
-  const cardStyle = `rounded py-4 px-6 bg-white ${
-    featured
-      ? 'shadow-lg border-2 border-orange-400'
-      : 'shadow-md border border-gray-300'
-  }`;
-
   const [isInformative, setIsInformative] = useState(false);
   const informativeCount = answer.informative_count + (isInformative ? 1 : 0);
 
   return (
-    <div className={cardStyle}>
+    <Card featured={featured}>
       {featured && <span className="block text-xl">ベストアンサー</span>}
       <p className="text-lg my-6 mx-2">{answer.definition}</p>
       {answer.origin && (
@@ -46,7 +41,7 @@ const AnswerItem: FC<Props> = ({ answer, featured = false }) => {
       >
         役に立った!
       </Button>
-    </div>
+    </Card>
   );
 };
 export default AnswerItem;
