@@ -1,5 +1,5 @@
 import { rest } from 'msw';
-import { getAnswer, newAnswer } from './resolvers/answer';
+import { getAnswer, getExamples, newAnswer } from './resolvers/answer';
 import {
   getCategoryTags,
   getCommunityTags,
@@ -28,6 +28,7 @@ export const handlers = [
   rest.get('/favorite-question', getFavoriteIndices),
   rest.get('/specific-question', getIndex),
   rest.get('/answer', getAnswer),
+  rest.get('/example', getExamples),
   rest.get('/whoami', getLoginUser),
   rest.get('/categorytag', getCategoryTags),
   rest.get('/communitytag', getCommunityTags),

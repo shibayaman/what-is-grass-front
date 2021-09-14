@@ -4,6 +4,7 @@ import {
   useLazyGetIndexQuery,
   useLazyGetAnswersQuery,
   useSelector,
+  useLazyGetExamplesQuery,
 } from '@what-is-grass/shared';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -19,6 +20,8 @@ const AnswersPage: React.FC = () => {
     triggerGetAnswersQuery,
     { data: answers, isLoading: isAnswerLoading },
   ] = useLazyGetAnswersQuery();
+  const [triggerGetExamplesQuery, { data: examples }] =
+    useLazyGetExamplesQuery();
   const [triggerGetIndexQuery, { data: index }] = useLazyGetIndexQuery();
   const [addToFavorite] = useAddFavoriteIndexMutation();
   const [favorited, setFavorited] = useState(false);
@@ -30,9 +33,15 @@ const AnswersPage: React.FC = () => {
   useEffect(() => {
     if (indexId) {
       triggerGetAnswersQuery({ index_id: +indexId });
+      triggerGetExamplesQuery({ index_id: +indexId });
       triggerGetIndexQuery({ index_id: +indexId });
     }
-  }, [indexId, triggerGetAnswersQuery, triggerGetIndexQuery]);
+  }, [
+    indexId,
+    triggerGetAnswersQuery,
+    triggerGetExamplesQuery,
+    triggerGetIndexQuery,
+  ]);
 
   const handleNewAnswerClick = () => {
     routerPush(`/new-answer/${indexId}`);
@@ -115,15 +124,16 @@ const AnswersPage: React.FC = () => {
             </div>
             <Card className="flex flex-col gap-4 col-span-2">
               <span>例文</span>
-              {[
-                '私は私の前で泣かないでください',
-                '私は私の前で泣かないでください',
-                '私は私の前で泣かないでください',
-                '私は私の前で泣かないでください',
-                '私は私の前で泣かないでください',
-              ].map((e, index) => (
-                <p key={index}>{e}</p>
-              ))}
+              {examples &&
+                (examples.length === 0 ? (
+                  <p>まだ例文は投稿されていません。</p>
+                ) : (
+                  examples.map((example) => (
+                    <p className="text-lg" key={example.id}>
+                      {example.example_sentence}
+                    </p>
+                  ))
+                ))}
             </Card>
           </div>
         </div>

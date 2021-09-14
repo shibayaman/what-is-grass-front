@@ -1,10 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   Answer,
-  NewAnswerRequest,
-  NewAnswerResponse,
+  Example,
   GetAnswersRequest,
   GetAnswersResponse,
+  GetExamplesRequest,
+  GetExamplesResponse,
+  NewAnswerRequest,
+  NewAnswerResponse,
 } from '../../types/answer';
 import {
   GetLoginUserRequest,
@@ -142,6 +145,13 @@ export const wordApi = createApi({
       }),
       transformResponse: (res: GetAnswersResponse) => res.answers,
     }),
+    getExamples: builder.query<Example[], GetExamplesRequest>({
+      query: (params) => ({
+        url: 'example',
+        params,
+      }),
+      transformResponse: (res: GetExamplesResponse) => res.examples,
+    }),
     addAnswer: builder.mutation<NewAnswerResponse, NewAnswerRequest>({
       query: (body) => ({
         url: 'answer',
@@ -211,6 +221,9 @@ export const useRemoveFavoriteIndexMutation =
   wordApi.endpoints.removeFavoriteIndex.useMutation;
 export const useLazyGetAnswersQuery = wordApi.endpoints.getAnswers.useLazyQuery;
 export const useGetAnswersQuery = wordApi.endpoints.getAnswers.useQuery;
+export const useLazyGetExamplesQuery =
+  wordApi.endpoints.getExamples.useLazyQuery;
+export const useGetExamplesQuery = wordApi.endpoints.getExamples.useQuery;
 export const useAddAnswerMutation = wordApi.endpoints.addAnswer.useMutation;
 export const useGetLoginUserQuery = wordApi.endpoints.getLoginUser.useQuery;
 export const useLoginMutation = wordApi.endpoints.login.useMutation;

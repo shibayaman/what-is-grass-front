@@ -10,6 +10,13 @@ export type Answer = {
   date: string;
 };
 
+export type Example = {
+  id: number;
+  example_sentence: string;
+  answer_id: Answer['id'];
+  index_id: Answer['index_id'];
+};
+
 export type NewAnswerRequest = {
   index_id: Answer['index_id'];
   definition: Answer['definition'];
@@ -23,7 +30,7 @@ export type NewAnswerResponse = Answer;
 export type GetAnswersRequest = Pick<Answer, 'index_id'>;
 export type GetAnswersResponse = { answers: Answer[] };
 
-export type Example = {
-  example_id: number;
-  example_sentence: string;
+export type GetExamplesRequest = GetAnswersRequest;
+export type GetExamplesResponse = {
+  examples: Example[];
 };
