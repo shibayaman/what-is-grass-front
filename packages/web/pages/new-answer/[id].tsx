@@ -3,6 +3,7 @@ import {
   categoryTranslator,
   useAddAnswerMutation,
   useGetCategoryTagsQuery,
+  useGetIndexQuery,
 } from '@what-is-grass/shared';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -14,8 +15,6 @@ import Layout from '../../components/Layout';
 import PrivatePage from '../../components/PrivatePage';
 import SelectableButton from '../../components/SelectableButton';
 import TextArea from '../../components/TextArea';
-
-const index = 'クラッシュバンディグー';
 
 type FormValues = {
   definition: string;
@@ -36,6 +35,10 @@ const newAnswerFormSchema = yup.object({
 const NewAnswerPage: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
+  const { data: index } = useGetIndexQuery(
+    { index_id: +id },
+    { skip: id === void 0 }
+  );
   const [addAnswer, { isLoading }] = useAddAnswerMutation();
   const { data: categories } = useGetCategoryTagsQuery();
 
@@ -85,10 +88,12 @@ const NewAnswerPage: React.FC = () => {
   return (
     <PrivatePage redirectTo="/">
       <Layout title="New Answer">
-        <h1 className="text-2xl p-3">
-          <span className="text-3xl text-green-700">{index}</span>
-          について回答する
-        </h1>
+        {index && (
+          <h1 className="text-2xl p-3">
+            <span className="text-3xl text-green-700">{index.index}</span>
+            について回答する
+          </h1>
+        )}
         <form className="flex justify-center" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex-initial flex-col item-start space-y-10 w-9/12 bg-white border rounded border-gray-300 p-3">
             <LabeledFormElement
