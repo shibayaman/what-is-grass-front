@@ -15,6 +15,7 @@ module.exports = {
       },
       backgroundImage: {
         header: "url('/header.png')",
+        body: "url('/body.png')",
       },
     },
   },
