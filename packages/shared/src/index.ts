@@ -20,6 +20,8 @@ export {
   useAddIndexMutation,
   useLazyGetAnswersQuery,
   useGetAnswersQuery,
+  useLazyGetExamplesQuery,
+  useGetExamplesQuery,
   useAddAnswerMutation,
   useGetLoginUserQuery,
   useLoginMutation,
