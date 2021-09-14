@@ -108,7 +108,7 @@ const RegisterPage: React.FC = () => {
   return (
     <GuestOnlyPage redirectTo="my-top">
       <Layout title="New User">
-        <h1 className="text-3xl mx-2 my-6">ユーザー登録</h1>
+        <h1 className="text-3xl mx-2 pt-4 mb-4">ユーザー登録</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex-initial m-4 mflex-col item-start space-y-10">
             <LabeledFormElement

@@ -95,7 +95,7 @@ const NewAnswerPage: React.FC = () => {
           </h1>
         )}
         <form className="flex justify-center" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex-initial flex-col item-start space-y-10 w-9/12 bg-white border rounded border-gray-300 p-3">
+          <div className="flex-initial flex-col item-start space-y-10 w-9/12 bg-white border rounded border-gray-300 p-4">
             <LabeledFormElement
               label="言葉の意味"
               error={errors.definition?.message}

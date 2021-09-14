@@ -81,7 +81,7 @@ const AnswersPage: React.FC = () => {
 
   return (
     <Layout>
-      <div className="m-4">
+      <div className="p-4">
         {index && (
           <div className="mb-2 ml-16">
             <h1 className="mb-4 text-6xl text-green-600 font-serif">
