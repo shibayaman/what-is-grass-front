@@ -84,7 +84,9 @@ const AnswersPage: React.FC = () => {
       <div className="m-4">
         {index && (
           <div className="mb-2 ml-16">
-            <h1 className="mb-2 text-3xl">{index.index}</h1>
+            <h1 className="mb-4 text-6xl text-green-600 font-serif">
+              {index.index}
+            </h1>
             <div className="mb-2 flex space-x-2">
               {index.category_tags.map(({ id, category_tag_name }) => {
                 return (

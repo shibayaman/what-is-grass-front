@@ -89,8 +89,8 @@ const NewAnswerPage: React.FC = () => {
     <PrivatePage redirectTo="/">
       <Layout title="New Answer">
         {index && (
-          <h1 className="text-2xl p-3">
-            <span className="text-3xl text-green-700">{index.index}</span>
+          <h1 className="text-3xl p-3">
+            <span className="text-5xl text-green-700">{index.index}</span>
             について回答する
           </h1>
         )}

@@ -108,7 +108,7 @@ const RegisterPage: React.FC = () => {
   return (
     <GuestOnlyPage redirectTo="my-top">
       <Layout title="New User">
-        <h1 className="text-xl mx-2 my-6">ユーザー登録</h1>
+        <h1 className="text-3xl mx-2 my-6">ユーザー登録</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex-initial m-4 mflex-col item-start space-y-10">
             <LabeledFormElement
@@ -215,6 +215,7 @@ const RegisterPage: React.FC = () => {
               error={errors.communityTags?.message}
             >
               <div className="flex flex-wrap gap-x-2 gap-y-2">
+                {console.log(communityTags)}
                 {communityTags &&
                   communityTags.map((communityTag, index) => (
                     <SelectableButton
