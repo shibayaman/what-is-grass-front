@@ -57,65 +57,70 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <header className="bg-green-500 px-2 py-4 flex justify-between">
+      <header className="bg-green-500 px-6 py-2 grid grid-cols-5">
         <Link href="/">
-          <a className="flex-shrink-0">
-            <img src="/logo.png" className="w-52" />
+          <a className="h-20 col-span-1">
+            <img src="/logo.png" className="h-full object-cover" />
           </a>
         </Link>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-1">
-          <SelectBox name="languageId" ref={register({ valueAsNumber: true })}>
-            {languages &&
-              languages.map((language) => (
-                <option key={language.id} value={language.id}>
-                  {language.language}
-                </option>
-              ))}
-          </SelectBox>
-          <TextInput
-            type="text"
-            name="keyword"
-            ref={register}
-            placeholder="言葉を検索"
-          />
-          <Button variant="secondary" type="submit">
-            検索
-          </Button>
-        </form>
-        <Button
-          variant="accent"
-          type="button"
-          onClick={() => {
-            router.push('/new-question');
-          }}
-        >
-          質問する
-        </Button>
-        {user ? (
-          <div className="flex flex-col">
-            {user.username}{' '}
-            <Button
-              variant="secondary"
-              size="xs"
-              type="button"
-              onClick={() => onLogoutHandler()}
-              disabled={isLoading}
+        <div className="col-span-4 flex	items-center justify-between">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-1">
+            <SelectBox
+              name="languageId"
+              ref={register({ valueAsNumber: true })}
             >
-              ログアウト
+              {languages &&
+                languages.map((language) => (
+                  <option key={language.id} value={language.id}>
+                    {language.language}
+                  </option>
+                ))}
+            </SelectBox>
+            <TextInput
+              type="text"
+              name="keyword"
+              ref={register}
+              placeholder="言葉を検索"
+            />
+            <Button variant="secondary" type="submit">
+              検索
             </Button>
-          </div>
-        ) : (
+          </form>
           <Button
-            variant="secondary-outline"
-            size="xs"
+            variant="accent"
             type="button"
             onClick={() => {
-              router.push('/');
+              router.push('/new-question');
             }}
           >
-            ログイン
+            質問する
           </Button>
-        )}
+          {user ? (
+            <div className="flex flex-col">
+              {user.username}{' '}
+              <Button
+                variant="secondary"
+                size="xs"
+                type="button"
+                onClick={() => onLogoutHandler()}
+                disabled={isLoading}
+              >
+                ログアウト
+              </Button>
+            </div>
+          ) : (
+            <Button
+              variant="secondary-outline"
+              size="xs"
+              type="button"
+              onClick={() => {
+                router.push('/');
+              }}
+            >
+              ログイン
+            </Button>
+          )}
+        </div>
       </header>
       {children}
     </div>
