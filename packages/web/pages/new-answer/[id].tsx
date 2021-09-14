@@ -89,13 +89,13 @@ const NewAnswerPage: React.FC = () => {
     <PrivatePage redirectTo="/">
       <Layout title="New Answer">
         {index && (
-          <h1 className="text-2xl p-3">
-            <span className="text-3xl text-green-700">{index.index}</span>
+          <h1 className="text-3xl p-3">
+            <span className="text-5xl text-green-700">{index.index}</span>
             について回答する
           </h1>
         )}
         <form className="flex justify-center" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex-initial flex-col item-start space-y-10 w-9/12 bg-white border rounded border-gray-300 p-3">
+          <div className="flex-initial flex-col item-start space-y-10 w-9/12 bg-white border rounded border-gray-300 p-4">
             <LabeledFormElement
               label="言葉の意味"
               error={errors.definition?.message}

@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import AnswerItem from '../../components/AnswerItem';
 import Button from '../../components/Button';
+import Card from '../../components/Card';
 import Layout from '../../components/Layout';
 import Tag from '../../components/Tag';
 
@@ -80,10 +81,12 @@ const AnswersPage: React.FC = () => {
 
   return (
     <Layout>
-      <div className="m-4">
+      <div className="p-4">
         {index && (
           <div className="mb-2 ml-16">
-            <h1 className="mb-2 text-3xl">{index.index}</h1>
+            <h1 className="mb-4 text-6xl text-green-600 font-serif">
+              {index.index}
+            </h1>
             <div className="mb-2 flex space-x-2">
               {index.category_tags.map(({ id, category_tag_name }) => {
                 return (
@@ -110,7 +113,7 @@ const AnswersPage: React.FC = () => {
                   />
                 ))}
             </div>
-            <div className="flex flex-col gap-4 col-span-2 rounded py-4 px-6 border border-gray-300">
+            <Card className="flex flex-col gap-4 col-span-2">
               <span>例文</span>
               {[
                 '私は私の前で泣かないでください',
@@ -121,7 +124,7 @@ const AnswersPage: React.FC = () => {
               ].map((e, index) => (
                 <p key={index}>{e}</p>
               ))}
-            </div>
+            </Card>
           </div>
         </div>
       </div>

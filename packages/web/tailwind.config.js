@@ -8,6 +8,14 @@ module.exports = {
     extend: {
       colors: {
         orange: colors.orange,
+        white: colors.white,
+        black: colors.black,
+        gray: colors.gray,
+        green: colors.lime,
+      },
+      backgroundImage: {
+        header: "url('/header.png')",
+        body: "url('/body.png')",
       },
     },
   },
