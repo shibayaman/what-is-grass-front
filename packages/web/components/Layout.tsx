@@ -57,7 +57,7 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <header className="bg-green-500 px-6 py-2 grid grid-cols-5">
+      <header className="bg-green-200 bg-header bg-contain bg-repeat-x px-6 py-2 grid grid-cols-5">
         <Link href="/">
           <a className="h-20 col-span-1">
             <img src="/logo.png" className="h-full object-cover" />
