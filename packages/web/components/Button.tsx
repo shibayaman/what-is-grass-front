@@ -16,9 +16,29 @@ type Props = JSX.IntrinsicElements['button'] & {
 };
 
 const filledColorScheme = (color: string) =>
-  `bg-${color}-500 text-blue-50 hover:bg-${color}-600 focus:ring-${color}-300 active:bg-${color}-700`;
+  classNames(
+    {
+      'bg-green-500 hover:bg-green-600 focus:ring-green-300 active:bg-green-700':
+        color === 'green',
+      'bg-gray-500 hover:bg-gray-600 focus:ring-gray-300 active:bg-gray-700':
+        color === 'gray',
+      'bg-orange-500 hover:bg-orange-600 focus:ring-orange-300 active:bg-orange-700':
+        color === 'orange',
+    },
+    'text-blue-50'
+  );
 const outlinedColorScheme = (color: string) =>
-  `bg-transparent text-${color}-500 border border-${color}-500 hover:text-blue-50 hover:bg-${color}-500 focus:ring-${color}-300 active:bg-${color}-600`;
+  classNames(
+    {
+      'text-green-500 border-green-500 hover:bg-green-500 focus:ring-green-300 active:bg-green-600':
+        color === 'green',
+      'text-gray-500 border-gray-500 hover:bg-gray-500 focus:ring-gray-300 active:bg-gray-600':
+        color === 'gray',
+      'text-orange-500 border-orange-500 hover:bg-orange-500 focus:ring-orange-300 active:bg-orange-600':
+        color === 'orange',
+    },
+    'bg-transparent border hover:text-blue-50'
+  );
 
 const colorSchemes: Record<ButtonColorSchemeOptions, string> = {
   primary: filledColorScheme('green'),
