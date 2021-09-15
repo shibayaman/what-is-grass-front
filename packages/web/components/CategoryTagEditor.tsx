@@ -27,16 +27,19 @@ const editCategoryTagFormSchema = yup.object({
 type Props = {
   indexId: number;
   defaultTagIds: number[];
+  closeEditor?: () => void;
 };
 
 const CategoryTagEditor: React.FC<Props> = ({
   indexId,
   defaultTagIds = [],
+  closeEditor,
 }) => {
   const user = useSelector((state) => state.auth.user);
 
   const { data: categoryTags } = useGetCategoryTagsQuery();
-  const [editCategoryTags, { isLoading }] = useEditCategoryTagsMutation();
+  const [editCategoryTags, { isLoading, isError }] =
+    useEditCategoryTagsMutation();
 
   const {
     register,
@@ -54,8 +57,15 @@ const CategoryTagEditor: React.FC<Props> = ({
   });
 
   const onSubmit: SubmitHandler<FormValue> = async ({ categoryTagIds }) => {
-    console.log(categoryTagIds);
-    editCategoryTags({ index_id: indexId, category_tag_id: categoryTagIds });
+    try {
+      await editCategoryTags({
+        index_id: indexId,
+        category_tag_id: categoryTagIds,
+      }).unwrap();
+      closeEditor && closeEditor();
+    } catch {
+      //
+    }
   };
 
   useEffect(() => {
@@ -111,6 +121,7 @@ const CategoryTagEditor: React.FC<Props> = ({
               タグを登録
             </Button>
             {isLoading && <span>送信中...</span>}
+            {isError && <span>更新に失敗しました</span>}
           </form>
         </Card>
       ) : null}

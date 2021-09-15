@@ -58,6 +58,10 @@ const AnswersPage: React.FC = () => {
     setIsEditingCategoryTags((isEditing) => !isEditing);
   };
 
+  const closeCategoryTagEditor = () => {
+    setIsEditingCategoryTags(false);
+  };
+
   const makeNewAnswerButton = () => {
     if (!indexId) {
       return null;
@@ -126,6 +130,7 @@ const AnswersPage: React.FC = () => {
         {isEditingCategoryTags && (
           <CategoryTagEditor
             indexId={index?.id || -1}
+            closeEditor={closeCategoryTagEditor}
             defaultTagIds={index?.category_tags.map((tags) => tags.id) || []}
           />
         )}

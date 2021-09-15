@@ -86,6 +86,7 @@ export const wordApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ['Index'],
   endpoints: (builder) => ({
     getIndices: builder.query<Index[], GetIndicesRequest>({
       query: (params) => ({
@@ -114,6 +115,10 @@ export const wordApi = createApi({
         params,
       }),
       transformResponse: (res: GetIndexResponse) => res.index,
+      providesTags: (_result, _error, args) => [
+        { type: 'Index', id: args.index_id },
+        'Index',
+      ],
     }),
     addIndex: builder.mutation<NewIndexResponse, NewIndexRequest>({
       query: (body) => ({
@@ -214,6 +219,9 @@ export const wordApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: (_result, _error, arg) => [
+        { type: 'Index', id: arg.index_id },
+      ],
     }),
   }),
 });
