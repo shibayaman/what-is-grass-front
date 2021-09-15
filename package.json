@@ -11,6 +11,7 @@
   "scripts": {
     "dev:web": "yarn workspace @what-is-grass/web dev",
     "dev:shared": "yarn workspace @what-is-grass/shared dev",
+    "start:web": "yarn workspace @what-is-grass/web build && yarn workspace @what-is-grass/web start",
     "build:shared": "yarn workspace @what-is-grass/shared build",
     "format:all": "prettier --write \"**/*.+(js|json|ts|tsx)\"",
     "format:web": "prettier --write \"packages/web/**/*.+(js|json|ts|tsx)\"",

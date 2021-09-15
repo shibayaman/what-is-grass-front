@@ -31,6 +31,12 @@ $ yarn install
 $ yarn dev:web
 ```
 
+プロダクションサーバーの起動
+
+```
+$ yarn start:web
+```
+
 ## shared
 
 変更検知してビルド
