@@ -125,6 +125,7 @@ const AnswersPage: React.FC = () => {
         )}
         {isEditingCategoryTags && (
           <CategoryTagEditor
+            indexId={index?.id || -1}
             defaultTagIds={index?.category_tags.map((tags) => tags.id) || []}
           />
         )}

@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   categoryTranslator,
+  useEditCategoryTagsMutation,
   useGetCategoryTagsQuery,
   useSelector,
 } from '@what-is-grass/shared';
@@ -24,13 +25,18 @@ const editCategoryTagFormSchema = yup.object({
 });
 
 type Props = {
+  indexId: number;
   defaultTagIds: number[];
 };
 
-const CategoryTagEditor: React.FC<Props> = ({ defaultTagIds = [] }) => {
+const CategoryTagEditor: React.FC<Props> = ({
+  indexId,
+  defaultTagIds = [],
+}) => {
   const user = useSelector((state) => state.auth.user);
 
   const { data: categoryTags } = useGetCategoryTagsQuery();
+  const [editCategoryTags, { isLoading }] = useEditCategoryTagsMutation();
 
   const {
     register,
@@ -49,6 +55,7 @@ const CategoryTagEditor: React.FC<Props> = ({ defaultTagIds = [] }) => {
 
   const onSubmit: SubmitHandler<FormValue> = async ({ categoryTagIds }) => {
     console.log(categoryTagIds);
+    editCategoryTags({ index_id: indexId, category_tag_id: categoryTagIds });
   };
 
   useEffect(() => {
@@ -100,9 +107,10 @@ const CategoryTagEditor: React.FC<Props> = ({ defaultTagIds = [] }) => {
                   ))}
               </div>
             </LabeledFormElement>
-            <Button variant="primary" type="submit" disabled={false}>
+            <Button variant="primary" type="submit" disabled={isLoading}>
               タグを登録
             </Button>
+            {isLoading && <span>送信中...</span>}
           </form>
         </Card>
       ) : null}
