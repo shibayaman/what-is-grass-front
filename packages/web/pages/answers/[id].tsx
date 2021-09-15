@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import AnswerItem from '../../components/AnswerItem';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
+import CategoryTagEditor from '../../components/CategoryTagEditor';
 import Layout from '../../components/Layout';
 import Tag from '../../components/Tag';
 
@@ -25,6 +26,7 @@ const AnswersPage: React.FC = () => {
   const [triggerGetIndexQuery, { data: index }] = useLazyGetIndexQuery();
   const [addToFavorite] = useAddFavoriteIndexMutation();
   const [favorited, setFavorited] = useState(false);
+  const [isEditingCategoryTags, setIsEditingCategoryTags] = useState(false);
   const user = useSelector((state) => state.auth.user);
 
   const { query, push: routerPush } = useRouter();
@@ -50,6 +52,14 @@ const AnswersPage: React.FC = () => {
   const handleFavoriteClick = () => {
     addToFavorite({ index_id: +indexId });
     setFavorited(true);
+  };
+
+  const handleEditCategoryTagClick = () => {
+    setIsEditingCategoryTags((isEditing) => !isEditing);
+  };
+
+  const closeCategoryTagEditor = () => {
+    setIsEditingCategoryTags(false);
   };
 
   const makeNewAnswerButton = () => {
@@ -81,7 +91,7 @@ const AnswersPage: React.FC = () => {
             <Link href="/">
               <a className="text-green-600">ログイン</a>
             </Link>
-            するとこの見出しに回答したり、お気に入りに登録できます
+            すると見出しの意味を回答したり、タグの編集やお気に入り登録ができます
           </div>
         )}
       </div>
@@ -105,8 +115,24 @@ const AnswersPage: React.FC = () => {
                   />
                 );
               })}
+              {user && (
+                <Button
+                  variant="secondary-outline"
+                  size="xs"
+                  onClick={handleEditCategoryTagClick}
+                >
+                  {isEditingCategoryTags ? '編集をやめる' : 'タグを編集する'}
+                </Button>
+              )}
             </div>
           </div>
+        )}
+        {isEditingCategoryTags && (
+          <CategoryTagEditor
+            indexId={index?.id || -1}
+            closeEditor={closeCategoryTagEditor}
+            defaultTagIds={index?.category_tags.map((tags) => tags.id) || []}
+          />
         )}
         {makeNewAnswerButton()}
         <div className="flex justify-center mb-6">

@@ -23,6 +23,8 @@ import {
   CategoryTag,
   GetCategoryTagsRequest,
   GetCategoryTagsResponse,
+  EditCategoryTagRequest,
+  EditCategoryTagResponse,
 } from '../../types/categoryTag';
 import {
   CommunityTag,
@@ -84,6 +86,7 @@ export const wordApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ['Index'],
   endpoints: (builder) => ({
     getIndices: builder.query<Index[], GetIndicesRequest>({
       query: (params) => ({
@@ -112,6 +115,10 @@ export const wordApi = createApi({
         params,
       }),
       transformResponse: (res: GetIndexResponse) => res.index,
+      providesTags: (_result, _error, args) => [
+        { type: 'Index', id: args.index_id },
+        'Index',
+      ],
     }),
     addIndex: builder.mutation<NewIndexResponse, NewIndexRequest>({
       query: (body) => ({
@@ -203,6 +210,19 @@ export const wordApi = createApi({
       transformResponse: (res: GetCategoryTagsResponse) => res.category_tags,
       keepUnusedDataFor: 60 * 30,
     }),
+    editCategoryTags: builder.mutation<
+      EditCategoryTagResponse,
+      EditCategoryTagRequest
+    >({
+      query: (body) => ({
+        url: '/categorytag/edit',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: (_result, _error, arg) => [
+        { type: 'Index', id: arg.index_id },
+      ],
+    }),
   }),
 });
 
@@ -234,3 +254,5 @@ export const useGetCommunityTagsQuery =
   wordApi.endpoints.getCommunityTags.useQuery;
 export const useGetCategoryTagsQuery =
   wordApi.endpoints.getCategoryTags.useQuery;
+export const useEditCategoryTagsMutation =
+  wordApi.endpoints.editCategoryTags.useMutation;
