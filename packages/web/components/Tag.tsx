@@ -7,7 +7,7 @@ type Props = {
 };
 
 const Tag: FC<Props> = ({ tagName, variant = 'secondary' }) => {
-  const style = classNames('text-sm py-0.5 px-1 rounded', {
+  const style = classNames('text-sm py-0.5 px-1 rounded whitespace-nowrap', {
     'bg-green-300': variant === 'primary',
     'bg-gray-300': variant === 'secondary',
     'bg-orange-300': variant === 'accent',
