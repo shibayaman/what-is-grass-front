@@ -1,5 +1,10 @@
 import { rest } from 'msw';
-import { getAnswer, getExamples, newAnswer } from './resolvers/answer';
+import {
+  getAnswer,
+  getExamples,
+  newAnswer,
+  editCategoryTags,
+} from './resolvers/answer';
 import {
   getCategoryTags,
   getCommunityTags,
@@ -40,5 +45,6 @@ export const handlers = [
   rest.post('/user/edit', editUser),
   rest.post('/login', login),
   rest.post('/logout', logout),
+  rest.post('/categorytag/edit', editCategoryTags),
   rest.delete('/favorite-question', deleteFavoriteIndex),
 ];

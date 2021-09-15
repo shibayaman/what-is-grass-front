@@ -1,4 +1,8 @@
 import { GetExamplesRequest, GetExamplesResponse } from '../../types/answer';
+import {
+  EditCategoryTagRequest,
+  EditCategoryTagResponse,
+} from '../../types/categoryTag';
 import { EmptyContent, Resolver } from './resolverType';
 
 export const newAnswer: Resolver = (_, res, ctx) => {
@@ -118,6 +122,32 @@ export const getExamples: Resolver<
           example_sentence: 'We did not enjoy our meal.',
           id: 4,
           index_id: 1,
+        },
+      ],
+    })
+  );
+};
+
+export const editCategoryTags: Resolver<
+  EditCategoryTagRequest,
+  EditCategoryTagResponse
+> = (_, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      index_id: 1,
+      categorytags: [
+        {
+          id: 1,
+          category_tag_name: 'slang',
+        },
+        {
+          id: 2,
+          category_tag_name: 'formal',
+        },
+        {
+          id: 3,
+          category_tag_name: 'polite',
         },
       ],
     })
