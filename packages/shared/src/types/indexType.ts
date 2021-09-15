@@ -12,8 +12,8 @@ export type Index = {
   date: string;
 };
 
-export type NewIndexResponse = Omit<Index, 'best_answer'>;
 export type NewIndexRequest = Pick<Index, 'index' | 'language_id'>;
+export type NewIndexResponse = { index: Omit<Index, 'best_answer'> };
 
 export type GetIndicesRequest = {
   language_id: Index['language_id'];
