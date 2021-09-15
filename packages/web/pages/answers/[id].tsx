@@ -140,12 +140,16 @@ const AnswersPage: React.FC = () => {
             {isAnswerLoading ? 'ロード中...' : null}
             <div className="flex flex-col gap-4 col-span-3">
               {answers &&
-                answers.map((answer, index) => (
-                  <AnswerItem
-                    key={answer.id}
-                    answer={answer}
-                    featured={index === 0}
-                  />
+                (answers.length === 0 ? (
+                  <p>まだ回答は投稿されていません。</p>
+                ) : (
+                  answers.map((answer, index) => (
+                    <AnswerItem
+                      key={answer.id}
+                      answer={answer}
+                      featured={index === 0}
+                    />
+                  ))
                 ))}
             </div>
             <Card className="flex flex-col gap-4 col-span-2">
