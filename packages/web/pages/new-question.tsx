@@ -30,8 +30,13 @@ const NewQuestionPage: React.FC = () => {
     resolver: yupResolver(newQuestionFormSchema),
   });
 
-  const onSubmit: SubmitHandler<FormValue> = ({ index, languageId }) => {
-    addIndex({ language_id: languageId, index });
+  const onSubmit: SubmitHandler<FormValue> = async ({ index, languageId }) => {
+    const res = await addIndex({ language_id: languageId, index })
+      .unwrap()
+      .catch(() => {
+        //
+      });
+    res && router.push(`/answers/${res.index.id}`);
   };
 
   const router = useRouter();
