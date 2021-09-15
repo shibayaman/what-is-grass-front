@@ -23,6 +23,8 @@ import {
   CategoryTag,
   GetCategoryTagsRequest,
   GetCategoryTagsResponse,
+  EditCategoryTagRequest,
+  EditCategoryTagResponse,
 } from '../../types/categoryTag';
 import {
   CommunityTag,
@@ -203,6 +205,16 @@ export const wordApi = createApi({
       transformResponse: (res: GetCategoryTagsResponse) => res.category_tags,
       keepUnusedDataFor: 60 * 30,
     }),
+    editCategoryTags: builder.mutation<
+      EditCategoryTagResponse,
+      EditCategoryTagRequest
+    >({
+      query: (body) => ({
+        url: '/categorytag/edit',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -234,3 +246,5 @@ export const useGetCommunityTagsQuery =
   wordApi.endpoints.getCommunityTags.useQuery;
 export const useGetCategoryTagsQuery =
   wordApi.endpoints.getCategoryTags.useQuery;
+export const useEditCategoryTagsMutation =
+  wordApi.endpoints.editCategoryTags.useMutation;

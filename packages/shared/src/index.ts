@@ -30,6 +30,7 @@ export {
   useGetLanguagesQuery,
   useGetCommunityTagsQuery,
   useGetCategoryTagsQuery,
+  useEditCategoryTagsMutation,
 } from './redux/services/word';
 export { Index } from './types/indexType';
 export { Answer } from './types/answer';
