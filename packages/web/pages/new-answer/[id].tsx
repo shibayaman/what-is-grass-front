@@ -39,7 +39,7 @@ const NewAnswerPage: React.FC = () => {
     { index_id: +id },
     { skip: id === void 0 }
   );
-  const [addAnswer, { isLoading }] = useAddAnswerMutation();
+  const [addAnswer, { isLoading, isError }] = useAddAnswerMutation();
   const { data: categories } = useGetCategoryTagsQuery();
 
   const { register, handleSubmit, control, getValues, watch, errors } =
@@ -74,7 +74,10 @@ const NewAnswerPage: React.FC = () => {
 
   const selectedCategory = +watch('categoryId');
 
-  const onSubmit: SubmitHandler<FormValues> = ({ categoryId, ...data }) => {
+  const onSubmit: SubmitHandler<FormValues> = async ({
+    categoryId,
+    ...data
+  }) => {
     const example = data.example.filter((e) => e.sentence !== '');
     const newAnswer = {
       index_id: +id,
@@ -82,7 +85,13 @@ const NewAnswerPage: React.FC = () => {
       ...data,
       example: example.map((e) => e.sentence),
     };
-    addAnswer(newAnswer);
+    const res = await addAnswer(newAnswer)
+      .unwrap()
+      .catch(() => {
+        //
+      });
+
+    res && router.push(`/answers/${res.index_id}`);
   };
 
   return (
@@ -190,6 +199,9 @@ const NewAnswerPage: React.FC = () => {
                 回答
               </Button>
               {isLoading ? '送信中...' : null}
+              {isError
+                ? '送信できませんでした。しばらくしてからやり直してください'
+                : null}
             </div>
           </div>
         </form>
