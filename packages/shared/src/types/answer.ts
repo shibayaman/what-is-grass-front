@@ -25,7 +25,7 @@ export type NewAnswerRequest = {
   category_tag_id: number;
   example?: Example['example_sentence'][];
 };
-export type NewAnswerResponse = Answer;
+export type NewAnswerResponse = { answer: Answer };
 
 export type GetAnswersRequest = Pick<Answer, 'index_id'>;
 export type GetAnswersResponse = { answers: Answer[] };
