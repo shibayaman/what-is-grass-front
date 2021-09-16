@@ -42,9 +42,11 @@ const IndexItem: FC<Props> = ({ question }) => {
         >
           この単語よく使う!
         </Button>
-        <span className="absolute right-0">
-          他{Math.max(question.answer_count, 0)}件の回答
-        </span>
+        <Link href={`/answers/${question.id}`}>
+          <a className="absolute right-0 text-green-600">
+            全{question.answer_count}件の回答
+          </a>
+        </Link>
       </div>
     </Card>
   );

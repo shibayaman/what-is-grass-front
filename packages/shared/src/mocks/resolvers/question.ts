@@ -156,6 +156,77 @@ export const getUserQuestions: Resolver = (_, res, ctx) => {
   );
 };
 
+export const getRecommendedQuestions: Resolver = (_, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json({
+      indices: [
+        {
+          index_id: 1,
+          index: 'モーリーファンタジー',
+          questioner: 'ATG',
+          frequently_used_count: 5,
+          answer_count: 1,
+          language_id: 2,
+          best_answer: '草を超えてしまって時の表現ですね',
+          category_tags: [
+            {
+              id: 1,
+              category_tag_name: 'slang',
+            },
+            {
+              id: 2,
+              category_tag_name: 'casual',
+            },
+          ],
+          date: '2021-07-11',
+        },
+        {
+          index_id: 2,
+          index: 'おはこんばんちは',
+          questioner: 'Mshita',
+          frequently_used_count: 0,
+          answer_count: 5,
+          language_id: 2,
+          best_answer:
+            '世界中どこにいる人にも通用する挨拶ですね。あられちゃん。',
+          category_tags: [
+            {
+              id: 1,
+              category_tag_name: 'slang',
+            },
+            {
+              id: 2,
+              category_tag_name: 'casual',
+            },
+          ],
+          date: '2021-07-13',
+        },
+        {
+          index_id: 3,
+          index: 'hello world',
+          questioner: 'Mshita',
+          frequently_used_count: 10000,
+          answer_count: 1,
+          language_id: 1,
+          best_answer: "it's the begining of the nightmare",
+          category_tags: [
+            {
+              id: 1,
+              category_tag_name: 'slang',
+            },
+            {
+              id: 5,
+              category_tag_name: 'technical term',
+            },
+          ],
+          date: '2021-07-14',
+        },
+      ],
+    })
+  );
+};
+
 export const newFavoriteIndex: Resolver = (_, res, ctx) => {
   return res(
     ctx.status(201),
