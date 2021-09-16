@@ -91,7 +91,7 @@ export const wordApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Index'],
+  tagTypes: ['Index', 'Answer'],
   endpoints: (builder) => ({
     getIndices: builder.query<Index[], GetIndicesRequest>({
       query: (params) => ({
@@ -164,6 +164,14 @@ export const wordApi = createApi({
         url: 'answer',
         params,
       }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Answer' as const, id })),
+              'Answer',
+            ]
+          : ['Answer'],
+
       transformResponse: (res: GetAnswersResponse) => res.answers,
     }),
     getExamples: builder.query<Example[], GetExamplesRequest>({
@@ -179,6 +187,8 @@ export const wordApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: (result) =>
+        result ? [{ type: 'Answer', id: result.index_id }] : [],
     }),
     getLoginUser: builder.query<GetLoginUserResponse, GetLoginUserRequest>({
       query: () => 'whoami',
