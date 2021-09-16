@@ -181,7 +181,7 @@ export const wordApi = createApi({
       }),
       transformResponse: (res: GetExamplesResponse) => res.examples,
     }),
-    addAnswer: builder.mutation<NewAnswerResponse, NewAnswerRequest>({
+    addAnswer: builder.mutation<Answer, NewAnswerRequest>({
       query: (body) => ({
         url: 'answer',
         method: 'POST',
@@ -189,6 +189,7 @@ export const wordApi = createApi({
       }),
       invalidatesTags: (result) =>
         result ? [{ type: 'Answer', id: result.index_id }] : [],
+      transformResponse: (res: NewAnswerResponse) => res.answer,
     }),
     getLoginUser: builder.query<GetLoginUserResponse, GetLoginUserRequest>({
       query: () => 'whoami',
