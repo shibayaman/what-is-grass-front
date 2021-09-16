@@ -30,9 +30,9 @@ const SearchPage: React.FC = () => {
   return (
     <Layout title="Search | What Is Grass">
       <div className="flex justify-center">
-        <div className="w-10/12 pt-4 mb-8">
+        <div className="w-9/12 pt-4 mb-8">
           <SearchBar setQuestions={updateQuestion} />
-          <div className="my-4 w-6/12 flex flex-col gap-4">
+          <div className="my-4 w-7/12 flex flex-col gap-4">
             {questions.map((question) => (
               <IndexItem key={question.id} question={question} />
             ))}
