@@ -34,6 +34,12 @@ export type GetFavoriteIndicesRequest = Partial<
 >;
 export type GetFavoriteIndicesResponse = GetIndicesResponse;
 
+export type GetRecommendedIndicesRequest = {
+  community_tag: number;
+  index_limit?: number;
+};
+export type GetRecommendedIndicesResponse = GetIndicesResponse;
+
 export type GetIndexRequest = { index_id: Index['id'] };
 export type GetIndexResponse = { index: Index };
 

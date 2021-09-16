@@ -47,6 +47,8 @@ import {
   NewFavoriteIndicesResponse,
   NewIndexRequest,
   NewIndexResponse,
+  GetRecommendedIndicesRequest,
+  GetRecommendedIndicesResponse,
 } from '../../types/indexType';
 import {
   GetLanguagesRequest,
@@ -112,6 +114,15 @@ export const wordApi = createApi({
       }),
       transformResponse: (res: GetFavoriteIndicesResponse) => res.indices,
     }),
+    getRecommendedIndices: builder.query<Index[], GetRecommendedIndicesRequest>(
+      {
+        query: (params) => ({
+          url: 'recommend-question',
+          params,
+        }),
+        transformResponse: (res: GetRecommendedIndicesResponse) => res.indices,
+      }
+    ),
     getIndex: builder.query<Index, GetIndexRequest>({
       query: (params) => ({
         url: '/specific-question',
@@ -235,6 +246,8 @@ export const useLazyGetIndicesQuery = wordApi.endpoints.getIndices.useLazyQuery;
 export const useGetUserIndicesQuery = wordApi.endpoints.getUserIndices.useQuery;
 export const useGetFavoriteIndicesQuery =
   wordApi.endpoints.getFavoriteIndices.useQuery;
+export const useGetRecommendedIndicesQuery =
+  wordApi.endpoints.getRecommendedIndices.useQuery;
 export const useGetIndexQuery = wordApi.endpoints.getIndex.useQuery;
 export const useLazyGetIndexQuery = wordApi.endpoints.getIndex.useLazyQuery;
 export const useAddIndexMutation = wordApi.endpoints.addIndex.useMutation;
