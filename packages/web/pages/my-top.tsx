@@ -1,13 +1,16 @@
 import {
   communityTranslator,
+  useGetRecommendedIndicesQuery,
   useGetUserIndicesQuery,
   useSelector,
 } from '@what-is-grass/shared';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, Fragment } from 'react';
+import { FC, Fragment, useState } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Button from '../components/Button';
 import Card from '../components/Card';
+import IndexItem from '../components/IndexItem';
 import Layout from '../components/Layout';
 import PrivatePage from '../components/PrivatePage';
 import Tag from '../components/Tag';
@@ -18,6 +21,39 @@ const MyTopPage: FC = () => {
   const { data: recentUserIndices } = useGetUserIndicesQuery({
     index_limit: 5,
   });
+
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const { data: recommendedIndices, isFetching } =
+    useGetRecommendedIndicesQuery(
+      {
+        community_tag: user?.community_tags[tabIndex].id || 0,
+      },
+      { skip: user === null }
+    );
+
+  const makeTabList = () => (
+    <TabList>
+      {user?.community_tags.map((community) => (
+        <Tab key={community.id}>
+          {communityTranslator(community.community_tag_name)}におすすめ
+        </Tab>
+      ))}
+    </TabList>
+  );
+
+  const makeTabContents = () =>
+    user?.community_tags.map((community) => (
+      <TabPanel key={community.id} className="cursor-default">
+        <div className="flex flex-col gap-4 mt-4">
+          {isFetching
+            ? '読み込み中...'
+            : recommendedIndices?.map((index) => (
+                <IndexItem key={index.id} question={index} />
+              ))}
+        </div>
+      </TabPanel>
+    ));
 
   const router = useRouter();
 
@@ -93,7 +129,17 @@ const MyTopPage: FC = () => {
                 </div>
               </Card>
             </div>
-            <div className="col-span-6">おすすめ見出し</div>
+            <div className="col-span-6">
+              <Card className="ml-4 mr-8 max-w-max" withShadow={false}>
+                <h2 className="text-3xl mb-4">あなたに覚えて欲しい言葉</h2>
+                <Tab>
+                  <Tabs onSelect={(index) => setTabIndex(index)}>
+                    {makeTabList()}
+                    {makeTabContents()}
+                  </Tabs>
+                </Tab>
+              </Card>
+            </div>
           </div>
         )}
       </Layout>
