@@ -98,6 +98,13 @@ const MyTopPage: FC = () => {
                     ))}
                   </p>
                 </div>
+                <div className="mb-4">
+                  <Link href="/favorites">
+                    <a className="mb-4 text-green-600">
+                      お気に入り見出しを表示
+                    </a>
+                  </Link>
+                </div>
                 <Button
                   variant="secondary"
                   onClick={() => {
