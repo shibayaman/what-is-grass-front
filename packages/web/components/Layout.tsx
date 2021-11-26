@@ -1,17 +1,19 @@
 import {
-  loggedOut,
+  // loggedOut,
   searchTriggered,
   useDispatch,
   useGetLanguagesQuery,
-  useLogoutMutation,
+  // useLogoutMutation,
   useSelector,
 } from '@what-is-grass/shared';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactNode } from 'react';
+import { useState } from 'react'; //後で消す
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '../components/Button';
+import Card from '../components/Card';
 import SelectBox from '../components/SelectBox';
 import TextInput from '../components/TextInput';
 
@@ -26,6 +28,7 @@ type FormValue = {
 };
 
 const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
+  const [showLogoutDisabled, setShowLogoutDisabled] = useState(false);
   const { register, handleSubmit } = useForm<FormValue>();
 
   const router = useRouter();
@@ -35,14 +38,16 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
 
   const { data: languages } = useGetLanguagesQuery();
 
-  const [logout, { isLoading }] = useLogoutMutation();
+  // const [logout, { isLoading }] = useLogoutMutation();
   const onLogoutHandler = async () => {
-    try {
-      await logout();
-      dispatch(loggedOut());
-    } catch (err) {
-      //
-    }
+    setShowLogoutDisabled((b) => !b);
+    return;
+    // try {
+    //   await logout();
+    //   dispatch(loggedOut());
+    // } catch (err) {
+    //   //
+    // }
   };
 
   const onSubmit: SubmitHandler<FormValue> = ({ keyword, languageId }) => {
@@ -96,17 +101,31 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
             質問する
           </Button>
           {user ? (
-            <div className="flex flex-col">
+            <div className="flex flex-col relative">
               {user.username}{' '}
               <Button
                 variant="secondary"
                 size="xs"
                 type="button"
                 onClick={() => onLogoutHandler()}
-                disabled={isLoading}
+                // disabled={isLoading}
               >
                 ログアウト
               </Button>
+              {showLogoutDisabled && (
+                <div className="relative">
+                  <Card className="absolute top-1 py-0.5 px-0.5 -left-16 text-sm">
+                    デモ版ではログアウトはできません
+                    <br />
+                    <span
+                      className="text-green-600 hover:text-green-700 cursor-pointer"
+                      onClick={() => setShowLogoutDisabled(false)}
+                    >
+                      閉じる
+                    </span>
+                  </Card>
+                </div>
+              )}
             </div>
           ) : (
             <Button
