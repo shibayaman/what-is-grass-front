@@ -7,6 +7,9 @@ what はくさ。
 言葉の Wikipedia を作ろうとしてる。
 
 ## 始め方
+**重要: オープンキャンパスの人へ**
+<br>こちらは開発ブランチです。デモができる様には作っていません。
+<br>オープンキャンパスで使いたい方は https://github.com/shibayaman/what-is-grass-front/tree/demo を見てください。
 
 ```bash
 $ git clone https://github.com/shibayaman/what-is-grass-front.git
