@@ -103,7 +103,7 @@ const SearchBar: React.FC<Props> = (props) => {
       <div className="flex space-x-2 mt-2">
         <SelectBox name="sortId" ref={register}>
           <option value="1">新しい順</option>
-          <option value="2">役に立った順</option>
+          <option value="2">よく使われてる順</option>
           <option value="3">回答数の多い順</option>
         </SelectBox>
         <SelectBox name="includeNoAnswerId" ref={register}>

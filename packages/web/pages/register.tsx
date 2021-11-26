@@ -215,7 +215,6 @@ const RegisterPage: React.FC = () => {
               error={errors.communityTags?.message}
             >
               <div className="inline-flex flex-wrap gap-x-2 gap-y-2">
-                {console.log(communityTags)}
                 {communityTags &&
                   communityTags.map((communityTag, index) => (
                     <SelectableButton

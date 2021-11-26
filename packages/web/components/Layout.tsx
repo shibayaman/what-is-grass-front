@@ -51,7 +51,7 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
   };
 
   return (
-    <div>
+    <div className="bg-white bg-body bg-fixed bg-contain bg-no-repeat min-h-full">
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
@@ -122,9 +122,7 @@ const Layout: React.FC<Props> = ({ children, title = 'default title' }) => {
           )}
         </div>
       </header>
-      <div className="bg-white bg-body bg-fixed bg-contain bg-no-repeat min-h-screen">
-        {children}
-      </div>
+      <div>{children}</div>
     </div>
   );
 };
