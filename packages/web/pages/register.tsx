@@ -162,7 +162,7 @@ const RegisterPage: React.FC = () => {
               label="話せる言語 (複数可)"
               error={errors.first_languages?.message}
             >
-              <div className="flex flex-wrap gap-x-2 gap-y-2">
+              <div className="inline-flex flex-wrap gap-x-2 gap-y-2">
                 {languages &&
                   languages.map((language, index) => (
                     <SelectableButton
@@ -188,7 +188,7 @@ const RegisterPage: React.FC = () => {
               label="学習中の言語 (複数可)"
               error={errors.second_languages?.message}
             >
-              <div className="flex flex-wrap gap-x-2 gap-y-2">
+              <div className="inline-flex flex-wrap gap-x-2 gap-y-2">
                 {languages &&
                   languages.map((language, index) => (
                     <SelectableButton
@@ -214,7 +214,7 @@ const RegisterPage: React.FC = () => {
               label="自分の特徴 (複数可)"
               error={errors.communityTags?.message}
             >
-              <div className="flex flex-wrap gap-x-2 gap-y-2">
+              <div className="inline-flex flex-wrap gap-x-2 gap-y-2">
                 {console.log(communityTags)}
                 {communityTags &&
                   communityTags.map((communityTag, index) => (

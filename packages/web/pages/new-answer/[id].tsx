@@ -179,7 +179,7 @@ const NewAnswerPage: React.FC = () => {
               label="この言葉が一番当てはまる部類"
               error={errors.categoryId?.message}
             >
-              <div className="flex flex-wrap gap-x-2 gap-y-2">
+              <div className="inline-flex flex-wrap gap-x-2 gap-y-2">
                 {categories &&
                   categories.map((category) => (
                     <SelectableButton

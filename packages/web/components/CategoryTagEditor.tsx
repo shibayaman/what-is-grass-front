@@ -97,7 +97,7 @@ const CategoryTagEditor: React.FC<Props> = ({
               error={errors.categoryTagIds?.message}
               positionErrorMessageAbsolute={false}
             >
-              <div className="flex flex-wrap gap-x-2 gap-y-2 mb-2">
+              <div className="inline-flex flex-wrap gap-x-2 gap-y-2 mb-2">
                 {categoryTags &&
                   categoryTags.map((categoryTag, index) => (
                     <SelectableButton
