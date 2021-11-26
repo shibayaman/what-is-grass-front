@@ -2,51 +2,13 @@
 
 what はくさ。
 
-## what is what is grass
-
-言葉の Wikipedia を作ろうとしてる。
-
 ## 始め方
 
+以下の3つのコマンドを順番に実行してください。
 ```bash
-$ git clone https://github.com/shibayaman/what-is-grass-front.git
-
-# yarn workspace を使っているので yarn でインストールして欲しい。
-$ yarn install
+git clone https://github.com/shibayaman/what-is-grass-front.git
+git checkout demo
+docker compose up
 ```
 
-## 構成
-
-| フォルダ | パッケージ名          | 説明                           |
-| -------- | --------------------- | ------------------------------ |
-| web      | @what-is-grass/web    | Web サイト版                   |
-| mobile   | @what-is-grass/mobile | モバイル版                     |
-| shared   | @what-is-grass/shared | web と mobile で共有するコード |
-
-## web
-
-開発サーバーの起動
-
-```
-$ yarn dev:web
-```
-
-プロダクションサーバーの起動
-
-```
-$ yarn start:web
-```
-
-## shared
-
-変更検知してビルド
-
-```
-$ yarn dev:shared
-```
-
-1 回だけビルド
-
-```
-$ yarn build:shard
-```
+おーぷんきゃんぱすのために無理やりdocker化したから動かなかったらしらない。(動かなかったら言ってください
