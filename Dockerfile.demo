@@ -1,0 +1,24 @@
+FROM node:14.16.0-alpine3.13 AS source
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+
+COPY . .
+RUN yarn install --frozen-lockfile
+RUN yarn build:shared
+RUN yarn build:web
+RUN yarn install --production --ignore-scripts --prefer-offline
+
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+RUN chown -R nextjs:nodejs ./packages/web/.next
+
+USER nextjs
+
+EXPOSE 3000
+
+ENV NODE_ENV production
+ENV PORT 3000
+ENV NEXT_TELEMETRY_DISABLED 1
+
+CMD ["yarn", "workspace", "@what-is-grass/web", "start"]

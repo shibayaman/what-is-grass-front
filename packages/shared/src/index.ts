@@ -1,6 +1,6 @@
 export { greet } from './greet';
-export { worker } from './mocks/browser';
-export { server } from './mocks/server';
+// export { worker } from './mocks/browser';
+// export { server } from './mocks/server';
 export { store } from './redux/store';
 export { searchTriggered } from './redux/features/question';
 export { loggedIn, loggedOut, initialized } from './redux/features/auth';

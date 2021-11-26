@@ -73,10 +73,7 @@ const fetchFn: (
 export const wordApi = createApi({
   reducerPath: 'wordApi',
   baseQuery: fetchBaseQuery({
-    baseUrl:
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:8080/api/'
-        : 'http://localhost:8080/api/',
+    baseUrl: 'http://localhost:8080/api/',
     fetchFn: fetchFn,
     prepareHeaders: (headers) => {
       const csrfTokenCookie = document.cookie

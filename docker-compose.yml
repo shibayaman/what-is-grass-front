@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  next:
+    build:
+      context: ./
+      dockerfile: Dockerfile.demo
+    container_name: 'what-is-grass-frontend'
+    ports:
+      - '3000:3000'
